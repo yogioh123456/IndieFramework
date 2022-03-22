@@ -1,0 +1,15 @@
+{
+    "name": "NetworkDemo",
+    "references": [
+        "GUID:6cc73ec323001034d9bfacf4b6ed7b48"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

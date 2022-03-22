@@ -5,6 +5,7 @@ using UnityEngine;
 public class EntityStatic
 {
     public static Dictionary<Type, object> compDic = new Dictionary<Type, object>();
+    public static List<Mono> monoList = new List<Mono>();
     
     /// <summary>
     /// 添加组件
@@ -19,6 +20,9 @@ public class EntityStatic
         if (!compDic.ContainsKey(type))
         {
             compDic.Add(type, t);
+            if (t is Mono mono) {
+                monoList.Add(mono);
+            }
         }
         else
         {
@@ -45,6 +49,10 @@ public class EntityStatic
         else
         {
             compDic[type] = t;
+        }
+        
+        if (t is Mono mono) {
+            monoList.Add(mono);
         }
         
         return t;
