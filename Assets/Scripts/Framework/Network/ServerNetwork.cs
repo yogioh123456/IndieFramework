@@ -10,7 +10,10 @@ public class ServerNetwork : Mono {
     public ServerNetwork() {
         RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError,false);
         server = new Server();
-        server.Start(7777, 10);
+    }
+
+    public void StartServer(ushort port, ushort maxNum) {
+        server.Start(port, maxNum);
     }
 
     public override void FixedUpdate() {

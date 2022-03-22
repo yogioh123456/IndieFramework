@@ -23,6 +23,10 @@ public class UGUIManager
     //UI摄像机(Camera Canvas)
     public Camera uiCamera;
 
+    public UGUIManager() {
+        Object.Instantiate(Resources.Load<GameObject>("Prefabs/UI/UIRoot")).SetZero();
+    }
+    
     /// <summary>
     /// 打开面板
     /// </summary>

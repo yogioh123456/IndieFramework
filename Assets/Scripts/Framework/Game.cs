@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Game : EntityStatic
+public partial class Game : EntityStatic
 {
     public static void Init() {
         AddComp<MainLogic>();
@@ -30,7 +30,4 @@ public class Game : EntityStatic
             monoList[i].OnApplicationQuit();
         }
     }
-    
-    public static EventSystemManager Event => GetComp<EventSystemManager>();
-    public static UGUIManager UI => GetComp<UGUIManager>();
 }

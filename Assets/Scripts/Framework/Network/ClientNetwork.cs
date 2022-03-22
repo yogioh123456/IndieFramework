@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ClientNetwork : Mono
 {
-    private Client client;
+    public Client client;
     
     public ClientNetwork() {
         RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError,false);

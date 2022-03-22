@@ -93,7 +93,7 @@ public class {0} : UGUICtrl
 
     public {0}()
     {{
-        OnCreate(ref selfView,""UGUI/{2}"",""{0}"");
+        OnCreate(ref selfView,""Prefabs/UI/{2}"",""{0}"");
     }}
 
     /// <summary>
