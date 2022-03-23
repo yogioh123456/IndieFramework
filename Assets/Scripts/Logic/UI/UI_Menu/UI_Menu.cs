@@ -40,7 +40,7 @@ public class UI_Menu : UGUICtrl
             Game.Client.client.Send(message);
             */
 
-            Game.Client.Send(MessageTest.MessageTestId.spawnPlayer, playerName + chatContent);
+            Game.Client.Send(Msg.chat, playerName + chatContent);
         });
     }
 

@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class ClientNetwork : Mono
 {
-    public Client client;
+    private Client client;
+    private delegate void MessageDelegate<Message, T>(Message msg, T t);
     
     public ClientNetwork() {
         RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError,false);
@@ -25,8 +26,6 @@ public class ClientNetwork : Mono
     public void Connect(string ip, ushort port) {
         client.Connect($"{ip}:{port}");
     }
-
-    public delegate void MessageDelegate<Message, T>(Message msg, T t);
 
     public void Send<T>(Enum id, T t) {
         //消息发送
@@ -56,15 +55,7 @@ public class ClientNetwork : Mono
         Game.Client.client.Send(message);
     }
 
-    public delegate void Del();
-
     private void MessageAdd<T>(Message message, T t) {
-        
-        //bool b1 = (() => { }) is Del;   // CS0837
-        //bool b2 = delegate() { } is Del;// CS0837
-        //Del d1 = () => { } as Del;      // CS0837  
-        //Del d2 = delegate() { } as Del;
-        
         if (typeof(T) == typeof(int)) {
             MessageDelegate<Message, int> add = AddInt;
             (add as MessageDelegate<Message, T>)?.Invoke(message, t);
