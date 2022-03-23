@@ -10,6 +10,7 @@ public partial class Game : EntityStatic
         AddComp<UGUIManager>();
         AddComp<EventSystemManager>();
         AddComp<ServerNetwork>();
+        AddComp<ServerSyncManager>();
         AddComp<ClientNetwork>();
     }
 
