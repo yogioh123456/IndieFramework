@@ -23,4 +23,8 @@ public class ServerNetwork : Mono {
     public override void OnApplicationQuit() {
         server.Stop();
     }
+
+    public void SendToAll(Message message, bool shouldRelease = true) {
+        server.SendToAll(message);
+    }
 }

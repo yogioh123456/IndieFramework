@@ -31,12 +31,16 @@ public class UI_Menu : UGUICtrl
             string playerName = selfView.playerName.text;
             string chatContent = selfView.inputSend.text;
             
+            /*
             //消息发送
             Message message = Message.Create(MessageSendMode.reliable, MessageTest.MessageTestId.spawnPlayer, shouldAutoRelay: true);
             message.AddUShort(Game.Client.client.Id);//client 的 id
             message.AddString(playerName + chatContent);
             //客户端发送消息
             Game.Client.client.Send(message);
+            */
+
+            Game.Client.Send(MessageTest.MessageTestId.spawnPlayer, playerName + chatContent);
         });
     }
 

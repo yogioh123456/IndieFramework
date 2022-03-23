@@ -55,31 +55,67 @@ public class ClientNetwork : Mono
         MessageAdd(message, v);
         Game.Client.client.Send(message);
     }
-    
+
+    public delegate void Del();
+
     private void MessageAdd<T>(Message message, T t) {
+        
+        //bool b1 = (() => { }) is Del;   // CS0837
+        //bool b2 = delegate() { } is Del;// CS0837
+        //Del d1 = () => { } as Del;      // CS0837  
+        //Del d2 = delegate() { } as Del;
+        
         if (typeof(T) == typeof(int)) {
-            (AddInt as MessageDelegate<Message, T>)?.Invoke(message, t);
+            MessageDelegate<Message, int> add = AddInt;
+            (add as MessageDelegate<Message, T>)?.Invoke(message, t);
         } else if (typeof(T) == typeof(float)) {
-            (AddFloat as MessageDelegate<Message, T>)?.Invoke(message, t);
+            MessageDelegate<Message, float> add = AddFloat;
+            (add as MessageDelegate<Message, T>)?.Invoke(message, t);
         } else if (typeof(T) == typeof(bool)) {
-            message.AddBool(Convert.ToBoolean(t));
+            MessageDelegate<Message, bool> add = AddBool;
+            (add as MessageDelegate<Message, T>)?.Invoke(message, t);
         } else if (typeof(T) == typeof(string)) {
-            (AddString as MessageDelegate<Message, T>)?.Invoke(message, t);
+            MessageDelegate<Message, string> add = AddString;
+            (add as MessageDelegate<Message, T>)?.Invoke(message, t);
         } else if (typeof(T) == typeof(double)) {
-            message.AddDouble(Convert.ToDouble(t));
+            MessageDelegate<Message, double> add = AddDouble;
+            (add as MessageDelegate<Message, T>)?.Invoke(message, t);
+        } else if (typeof(T) == typeof(long)) {
+            MessageDelegate<Message, long> add = AddLong;
+            (add as MessageDelegate<Message, T>)?.Invoke(message, t);
+        } else if (typeof(T) == typeof(short)) {
+            MessageDelegate<Message, short> add = AddShort;
+            (add as MessageDelegate<Message, T>)?.Invoke(message, t);
         } else if (typeof(T) == typeof(byte)) {
-            message.AddByte(Convert.ToByte(t));
-        } else if (typeof(T) == typeof(byte)) {
-            message.AddLong(Convert.ToInt64(t));
-        } else if (typeof(T) == typeof(byte)) {
-            message.AddShort(Convert.ToInt16(t));
+            MessageDelegate<Message, byte> add = AddByte;
+            (add as MessageDelegate<Message, T>)?.Invoke(message, t);
         } else if (typeof(T) == typeof(Quaternion)) {
-            (AddQuaternion as MessageDelegate<Message, T>)?.Invoke(message, t);
+            MessageDelegate<Message, Quaternion> add = AddQuaternion;
+            (add as MessageDelegate<Message, T>)?.Invoke(message, t);
         } else if (typeof(T) == typeof(Vector3)) {
-            (AddVector3 as MessageDelegate<Message, T>)?.Invoke(message, t);
+            MessageDelegate<Message, Vector3> add = AddVector3;
+            (add as MessageDelegate<Message, T>)?.Invoke(message, t);
         } else if (typeof(T) == typeof(Vector2)) {
-            (AddVector2 as MessageDelegate<Message, T>)?.Invoke(message, t);
+            MessageDelegate<Message, Vector2> add = AddVector2;
+            (add as MessageDelegate<Message, T>)?.Invoke(message, t);
         }
+    }
+
+    #region AddMsg
+    private void AddShort(Message message, short data) {
+        message.AddShort(data);
+    }
+    private void AddLong(Message message, long data) {
+        message.AddLong(data);
+    }
+    private void AddByte(Message message, byte data) {
+        message.AddByte(data);
+    }
+    private void AddBool(Message message, bool data) {
+        message.AddBool(data);
+    }
+    private void AddDouble(Message message, double data) {
+        message.AddDouble(data);
     }
     private void AddInt(Message message, int data) {
         message.AddInt(data);
@@ -99,4 +135,5 @@ public class ClientNetwork : Mono
     private void AddVector2(Message message, Vector2 vector2) {
         message.AddVector2(vector2);
     }
+    #endregion
 }
