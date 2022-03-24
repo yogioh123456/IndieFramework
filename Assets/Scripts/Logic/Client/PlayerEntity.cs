@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControl {
+public class PlayerEntity : Entity {
     private Player player;
     private Movement movement;
     private GameObject playerObj;
     
-    public PlayerControl(Player player) {
+    public PlayerEntity(Player player) {
         this.player = player;
         playerObj = Game.Asset.LoadAsset("Prefabs/hero");
         playerObj.SetZero();

@@ -6,7 +6,7 @@ public class PlayerManager
 {
     public void AddPlayer() {
         Player player = new Player();
-        PlayerControl playerControl = new PlayerControl(player);
+        PlayerEntity playerEntity = new PlayerEntity(player);
     }
 }
 
