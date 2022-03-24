@@ -58,6 +58,10 @@ public class UI_Menu : UGUICtrl
     }
 
     private void CreatePlayer() {
+        //自己本地提前创建
         Game.GetComp<PlayerManager>().AddPlayer();
+        
+        //通知服务器
+        Game.Client.Send(Msg.createPlayer);
     }
 }

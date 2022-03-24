@@ -27,6 +27,14 @@ public class ClientNetwork : Mono
         client.Connect($"{ip}:{port}");
     }
 
+    public void Send(Enum id) {
+        //消息发送
+        Message message = Message.Create(MessageSendMode.reliable, id, shouldAutoRelay: true);
+        message.AddUShort(Game.Client.client.Id);
+        //客户端发送消息
+        Game.Client.client.Send(message);
+    }
+    
     public void Send<T>(Enum id, T t) {
         //消息发送
         Message message = Message.Create(MessageSendMode.reliable, id, shouldAutoRelay: true);

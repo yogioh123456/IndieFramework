@@ -6,7 +6,13 @@ public class PlayerManager
 {
     public void AddPlayer() {
         Player player = new Player();
-        PlayerEntity playerEntity = new PlayerEntity(player);
+        PlayerControl playerControl = new PlayerControl(player);
+        playerControl.AddComp<Movement>(playerControl.playerObj);
+    }
+    
+    public void AddOtherPlayer() {
+        Player player = new Player();
+        PlayerControl playerControl = new PlayerControl(player);
     }
 }
 

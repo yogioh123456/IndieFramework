@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement {
+public class Movement : Entity {
     private GameObject target;
     
-    public Movement(GameObject go) {
-        target = go;
+    public Movement(GameObject player) {
+        target = player;
         this.RegisterEvent();
+    }
+
+    public override void Dispose() {
+        this.UnregisterEvent();
+        base.Dispose();
     }
 
     [EventMsg]

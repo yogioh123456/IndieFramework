@@ -12,10 +12,10 @@ public class Entity
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public T AddComp<T>() where T : new()
+    public T AddComp<T>(params object[] datas)
     {
         Type type = typeof (T);
-        T t = (T)Activator.CreateInstance(type);
+        T t = (T)Activator.CreateInstance(type, datas);
         
         if (!compDic.ContainsKey(type))
         {
@@ -42,5 +42,13 @@ public class Entity
             return (T)compDic[type];
         }
         return default;
+    }
+
+    public virtual void Dispose() {
+        foreach (var one in compDic) {
+            if (one.Value is Entity entity) {
+                entity.Dispose();
+            }
+        }
     }
 }
