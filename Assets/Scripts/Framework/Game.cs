@@ -5,15 +5,6 @@ using UnityEngine;
 
 public partial class Game : EntityStatic
 {
-    public static void Init() {
-        AddComp<MainLogic>();
-        AddComp<UGUIManager>();
-        AddComp<EventSystemManager>();
-        AddComp<ServerNetwork>();
-        AddComp<ServerSyncManager>();
-        AddComp<ClientNetwork>();
-    }
-
     public static void Update() {
         for (int i = monoList.Count - 1; i >= 0; i--) {
             monoList[i].Update();

@@ -23,9 +23,13 @@ public class UI_Menu : UGUICtrl
         selfView.btnServer.AddButtonEvent(() => {
             Game.Server.StartServer(7777, 10);
             Game.Client.Connect("127.0.0.1", 7777);
+            CreatePlayer();
+            ClosePanel();
         });
         selfView.btnClient.AddButtonEvent(() => {
             Game.Client.Connect("127.0.0.1", 7777);
+            CreatePlayer();
+            ClosePanel();
         });
         selfView.btnSend.AddButtonEvent(() => {
             string playerName = selfView.playerName.text;
@@ -51,5 +55,9 @@ public class UI_Menu : UGUICtrl
     {
         base.OpenPanel(data);
         
+    }
+
+    private void CreatePlayer() {
+        Game.GetComp<PlayerManager>().AddPlayer();
     }
 }
