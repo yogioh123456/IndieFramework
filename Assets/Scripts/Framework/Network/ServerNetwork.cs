@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using RiptideNetworking;
 using RiptideNetworking.Utils;
@@ -6,18 +7,31 @@ using UnityEngine;
 
 public class ServerNetwork : Mono {
     private Server server;
+    private delegate void ServerMessageReceived(object sender, ServerMessageReceivedEventArgs e);
+
+    private ServerSyncManager serverSyncManager;
+
+    private uint timeTick;
     
     public ServerNetwork() {
         RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError,false);
         server = new Server();
+        server.MessageReceived += OnMessageReceived;
     }
 
+    private void OnMessageReceived(object sender, ServerMessageReceivedEventArgs e) {
+        Game.GetComp<ServerSyncManager>().AddCmd(sender, e, timeTick);
+    }
+    
     public void StartServer(ushort port, ushort maxNum) {
         server.Start(port, maxNum);
     }
 
     public override void FixedUpdate() {
-        server?.Tick();
+        if (server.IsRunning) {
+            server.Tick();
+            timeTick += 1;
+        }
     }
 
     public override void OnApplicationQuit() {
