@@ -1,7 +1,7 @@
 ﻿using RiptideNetworking;
 using UnityEngine;
 
-public class ChatLogicServer {
+public class RoleLogicServer {
     //服务端处理消息
     [MessageHandler((ushort)Msg.chat)]
     private static void PlayerChat(ushort fromClientId, Message message) {
@@ -11,7 +11,7 @@ public class ChatLogicServer {
         Message messageToSend = Message.Create(MessageSendMode.reliable, Msg.chat);
         messageToSend.AddUShort(playerId);
         messageToSend.AddString(str);
-        Game.Server.SendToAll(messageToSend);
+        Game.ServerNet.SendToAll(messageToSend);
     }
 
     //创建玩家
@@ -19,13 +19,16 @@ public class ChatLogicServer {
     public static void SpawnPlayer(ushort fromClientId, Message message) {
         ushort playerId = message.GetUShort();
         
-        Debug.LogError("服务端生成玩家");
+        Debug.LogError("服务端生成玩家" + fromClientId);
         
         Message messageToSend = Message.Create(MessageSendMode.reliable, Msg.createPlayer);
         messageToSend.AddUShort(playerId);
-        Game.Server.SendToAll(messageToSend);
+        Game.ServerNet.SendToAll(messageToSend);
+        
         
         //保存服务器状态
-        
+        PlayerServerData player = new PlayerServerData();
+        player.id = playerId;
+        Game.ServerMain.serverRoleManager.AddPlayer(playerId, player);
     }
 }

@@ -15,8 +15,8 @@ public class ChatLogicClient {
     private static void PlayerCreate(Message message)
     {
         ushort playerId = message.GetUShort();
-        Debug.Log("客户端创建玩家" + playerId + "  " + Game.Client.ID);
-        if (playerId == Game.Client.ID) {
+        Debug.Log("客户端创建玩家" + playerId + "  " + Game.ClientNet.ID);
+        if (playerId == Game.ClientNet.ID) {
             Game.GetComp<PlayerManager>().AddPlayer();
         } else {
             Game.GetComp<PlayerManager>().AddOtherPlayer();

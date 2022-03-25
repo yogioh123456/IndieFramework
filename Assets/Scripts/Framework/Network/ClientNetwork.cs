@@ -39,35 +39,35 @@ public class ClientNetwork : Mono
     public void Send(Enum id) {
         //消息发送
         Message message = Message.Create(MessageSendMode.reliable, id, shouldAutoRelay: true);
-        message.AddUShort(Game.Client.ID);
+        message.AddUShort(Game.ClientNet.ID);
         //客户端发送消息
-        Game.Client.client.Send(message);
+        Game.ClientNet.client.Send(message);
     }
     
     public void Send<T>(Enum id, T t) {
         //消息发送
         Message message = Message.Create(MessageSendMode.reliable, id, shouldAutoRelay: true);
-        message.AddUShort(Game.Client.client.Id);
+        message.AddUShort(Game.ClientNet.client.Id);
         MessageAdd(message, t);
         //客户端发送消息
-        Game.Client.client.Send(message);
+        Game.ClientNet.client.Send(message);
     }
 
     public void Send<T,K>(Enum id, T t, K k) {
         Message message = Message.Create(MessageSendMode.reliable, id, shouldAutoRelay: true);
-        message.AddUShort(Game.Client.client.Id);
+        message.AddUShort(Game.ClientNet.client.Id);
         MessageAdd(message, t);
         MessageAdd(message, k);
-        Game.Client.client.Send(message);
+        Game.ClientNet.client.Send(message);
     }
     
     public void Send<T,K,V>(Enum id, T t, K k, V v) {
         Message message = Message.Create(MessageSendMode.reliable, id, shouldAutoRelay: true);
-        message.AddUShort(Game.Client.client.Id);
+        message.AddUShort(Game.ClientNet.client.Id);
         MessageAdd(message, t);
         MessageAdd(message, k);
         MessageAdd(message, v);
-        Game.Client.client.Send(message);
+        Game.ClientNet.client.Send(message);
     }
 
     private void MessageAdd<T>(Message message, T t) {

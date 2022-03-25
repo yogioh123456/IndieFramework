@@ -17,10 +17,15 @@ public class ServerNetwork : Mono {
         RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError,false);
         server = new Server();
         server.MessageReceived += OnMessageReceived;
+        server.ClientDisconnected += OnClientDisconnected;
     }
 
     private void OnMessageReceived(object sender, ServerMessageReceivedEventArgs e) {
         Game.GetComp<ServerSyncManager>().AddCmd(sender, e, timeTick);
+    }
+
+    private void OnClientDisconnected(object data, ClientDisconnectedEventArgs e) {
+        Game.Event.Dispatch("ClientDisconnected", e.Id);
     }
     
     public void StartServer(ushort port, ushort maxNum) {
@@ -40,5 +45,9 @@ public class ServerNetwork : Mono {
 
     public void SendToAll(Message message, bool shouldRelease = true) {
         server.SendToAll(message);
+    }
+    
+    public void Send(Message message, ushort clientId,bool shouldRelease = true) {
+        server.Send(message, clientId, shouldRelease);
     }
 }

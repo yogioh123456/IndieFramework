@@ -21,16 +21,16 @@ public class UI_Menu : UGUICtrl
     {
         //------------------按钮添加事件-----------------
         selfView.btnServer.AddButtonEvent(() => {
-            Game.Server.StartServer(7778, 10);
-            Game.Client.Connect("127.0.0.1", 7778);
-            Game.Client.connectedAction = () => {
+            Game.ServerNet.StartServer(7778, 10);
+            Game.ClientNet.Connect("127.0.0.1", 7778);
+            Game.ClientNet.connectedAction = () => {
                 CreatePlayer();
                 ClosePanel();
             };
         });
         selfView.btnClient.AddButtonEvent(() => {
-            Game.Client.Connect("127.0.0.1", 7778);
-            Game.Client.connectedAction = () => {
+            Game.ClientNet.Connect("127.0.0.1", 7778);
+            Game.ClientNet.connectedAction = () => {
                 CreatePlayer();
                 ClosePanel();
             };
@@ -48,7 +48,7 @@ public class UI_Menu : UGUICtrl
             Game.Client.client.Send(message);
             */
 
-            Game.Client.Send(Msg.chat, playerName + chatContent);
+            Game.ClientNet.Send(Msg.chat, playerName + chatContent);
         });
     }
 
@@ -63,6 +63,6 @@ public class UI_Menu : UGUICtrl
 
     private void CreatePlayer() {
         //通知服务器
-        Game.Client.Send(Msg.createPlayer);
+        Game.ClientNet.Send(Msg.createPlayer);
     }
 }
