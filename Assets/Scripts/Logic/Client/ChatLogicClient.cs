@@ -4,12 +4,22 @@ using UnityEngine;
 public class ChatLogicClient {
     //客户端接收消息
     [MessageHandler((ushort)Msg.chat)]
-    private static void SpawnPlayer(Message message)
+    private static void PlayerChat(Message message)
     {
         ushort playerId = message.GetUShort();
         string str = message.GetString();
-        
-        Debug.Log("客户端生成玩家" + playerId + str);
-        
+        Debug.Log("客户端聊天" + playerId + str);
+    }
+    
+    [MessageHandler((ushort)Msg.createPlayer)]
+    private static void PlayerCreate(Message message)
+    {
+        ushort playerId = message.GetUShort();
+        Debug.Log("客户端创建玩家" + playerId + "  " + Game.Client.ID);
+        if (playerId == Game.Client.ID) {
+            Game.GetComp<PlayerManager>().AddPlayer();
+        } else {
+            Game.GetComp<PlayerManager>().AddOtherPlayer();
+        }
     }
 }

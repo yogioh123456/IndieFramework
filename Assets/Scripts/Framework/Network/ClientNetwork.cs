@@ -9,11 +9,20 @@ public class ClientNetwork : Mono
 {
     private Client client;
     private delegate void MessageDelegate<Message, T>(Message msg, T t);
+    public Action connectedAction;
     
     public ClientNetwork() {
         RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError,false);
         client = new Client();
+        client.Connected += Connected;
     }
+
+    private void Connected(object sender, EventArgs e) {
+        Debug.Log("连接成功");
+        connectedAction?.Invoke();
+    }
+    
+    public ushort ID => client.Id;
 
     public override void FixedUpdate() {
         client?.Tick();
@@ -30,7 +39,7 @@ public class ClientNetwork : Mono
     public void Send(Enum id) {
         //消息发送
         Message message = Message.Create(MessageSendMode.reliable, id, shouldAutoRelay: true);
-        message.AddUShort(Game.Client.client.Id);
+        message.AddUShort(Game.Client.ID);
         //客户端发送消息
         Game.Client.client.Send(message);
     }
@@ -39,9 +48,7 @@ public class ClientNetwork : Mono
         //消息发送
         Message message = Message.Create(MessageSendMode.reliable, id, shouldAutoRelay: true);
         message.AddUShort(Game.Client.client.Id);
-
         MessageAdd(message, t);
-
         //客户端发送消息
         Game.Client.client.Send(message);
     }
