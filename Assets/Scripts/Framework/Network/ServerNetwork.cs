@@ -18,8 +18,14 @@ public class ServerNetwork : Mono {
         server = new Server();
         server.MessageReceived += OnMessageReceived;
         server.ClientDisconnected += OnClientDisconnected;
+        server.ClientConnected += ClientConnected;
     }
 
+    private void ClientConnected(object data, ServerClientConnectedEventArgs e)
+    {
+        Game.GetComp<ServerSyncManager>().ClientConnected(e.Client.Id);
+    }
+    
     private void OnMessageReceived(object sender, ServerMessageReceivedEventArgs e) {
         Game.GetComp<ServerSyncManager>().AddCmd(sender, e, timeTick);
     }

@@ -24,14 +24,14 @@ public class UI_Menu : UGUICtrl
             Game.ServerNet.StartServer(7778, 10);
             Game.ClientNet.Connect("127.0.0.1", 7778);
             Game.ClientNet.connectedAction = () => {
-                CreatePlayer();
+                //CreatePlayer();
                 ClosePanel();
             };
         });
         selfView.btnClient.AddButtonEvent(() => {
             Game.ClientNet.Connect("127.0.0.1", 7778);
             Game.ClientNet.connectedAction = () => {
-                CreatePlayer();
+                //CreatePlayer();
                 ClosePanel();
             };
         });

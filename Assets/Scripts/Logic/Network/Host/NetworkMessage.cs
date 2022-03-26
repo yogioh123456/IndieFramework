@@ -2,5 +2,6 @@
 {
     chat = 1,
     createPlayer,
-    playerMove
+    playerMove,
+    connected,
 }

@@ -31,4 +31,14 @@ public class RoleLogicServer {
         player.id = playerId;
         Game.ServerMain.serverRoleManager.AddPlayer(playerId, player);
     }
+    
+    //玩家移动
+    [MessageHandler((ushort) Msg.playerMove)]
+    public static void PlayerMove(ushort fromClientId, Message message) {
+        Message messageToSend = Message.Create(MessageSendMode.reliable, Msg.playerMove);
+        messageToSend.AddUShort(fromClientId);
+        messageToSend.AddVector3(message.GetVector3());
+        messageToSend.AddVector3(message.GetVector3());
+        Game.ServerNet.SendToAll(messageToSend);
+    }
 }
