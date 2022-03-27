@@ -22,11 +22,7 @@ public class EntityStatic
         if (!compDic.ContainsKey(type))
         {
             compDic.Add(type, t);
-            if (t.GetType().GetInterface("IMono") != null)
-            {
-                
-            }
-
+            
             if (t is IUpdate update)
             {
                 updateList.Add(update);
