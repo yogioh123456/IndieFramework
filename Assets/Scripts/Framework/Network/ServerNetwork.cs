@@ -5,7 +5,7 @@ using RiptideNetworking;
 using RiptideNetworking.Utils;
 using UnityEngine;
 
-public class ServerNetwork : Mono {
+public class ServerNetwork : IFixedUpdate, IApplicationQuit {
     private Server server;
     private delegate void ServerMessageReceived(object sender, ServerMessageReceivedEventArgs e);
 
@@ -38,14 +38,14 @@ public class ServerNetwork : Mono {
         server.Start(port, maxNum);
     }
 
-    public override void FixedUpdate() {
+    public void FixedUpdate() {
         if (server.IsRunning) {
             server.Tick();
             timeTick += 1;
         }
     }
 
-    public override void OnApplicationQuit() {
+    public void OnApplicationQuit() {
         server.Stop();
     }
 

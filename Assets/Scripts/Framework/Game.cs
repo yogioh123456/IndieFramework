@@ -6,20 +6,20 @@ using UnityEngine;
 public partial class Game : EntityStatic
 {
     public static void Update() {
-        for (int i = monoList.Count - 1; i >= 0; i--) {
-            monoList[i].Update();
+        for (int i = updateList.Count - 1; i >= 0; i--) {
+            updateList[i].Update();
         }
     }
     
     public static void FixedUpdate() {
-        for (int i = monoList.Count - 1; i >= 0; i--) {
-            monoList[i].FixedUpdate();
+        for (int i = fixedUpdateList.Count - 1; i >= 0; i--) {
+            fixedUpdateList[i].FixedUpdate();
         }
     }
     
     public static void OnApplicationQuit() {
-        for (int i = monoList.Count - 1; i >= 0; i--) {
-            monoList[i].OnApplicationQuit();
+        for (int i = applicationList.Count - 1; i >= 0; i--) {
+            applicationList[i].OnApplicationQuit();
         }
     }
 }

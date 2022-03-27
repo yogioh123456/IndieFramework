@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EntityStatic
 {
-    public static Dictionary<Type, object> compDic = new Dictionary<Type, object>();
-    public static List<Mono> monoList = new List<Mono>();
+    private static Dictionary<Type, object> compDic = new Dictionary<Type, object>();
+    protected static List<IUpdate> updateList = new List<IUpdate>();
+    protected static List<IFixedUpdate> fixedUpdateList = new List<IFixedUpdate>();
+    protected static List<IApplicationQuit> applicationList = new List<IApplicationQuit>();
     
     /// <summary>
     /// 添加组件
@@ -20,8 +22,22 @@ public class EntityStatic
         if (!compDic.ContainsKey(type))
         {
             compDic.Add(type, t);
-            if (t is Mono mono) {
-                monoList.Add(mono);
+            if (t.GetType().GetInterface("IMono") != null)
+            {
+                
+            }
+
+            if (t is IUpdate update)
+            {
+                updateList.Add(update);
+            }
+            if (t is IFixedUpdate fixedUpdate)
+            {
+                fixedUpdateList.Add(fixedUpdate);
+            }
+            if (t is IApplicationQuit applicationQuit)
+            {
+                applicationList.Add(applicationQuit);
             }
         }
         else
@@ -51,10 +67,19 @@ public class EntityStatic
             compDic[type] = t;
         }
         
-        if (t is Mono mono) {
-            monoList.Add(mono);
+        if (t is IUpdate update)
+        {
+            updateList.Add(update);
         }
-        
+        if (t is IFixedUpdate fixedUpdate)
+        {
+            fixedUpdateList.Add(fixedUpdate);
+        }
+        if (t is IApplicationQuit applicationQuit)
+        {
+            applicationList.Add(applicationQuit);
+        }
+
         return t;
     }
     

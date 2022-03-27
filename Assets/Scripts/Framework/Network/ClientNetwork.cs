@@ -5,7 +5,7 @@ using RiptideNetworking;
 using RiptideNetworking.Utils;
 using UnityEngine;
 
-public class ClientNetwork : Mono
+public class ClientNetwork : IFixedUpdate,IApplicationQuit
 {
     private Client client;
     private delegate void MessageDelegate<Message, T>(Message msg, T t);
@@ -24,11 +24,11 @@ public class ClientNetwork : Mono
     
     public ushort ID => client.Id;
 
-    public override void FixedUpdate() {
+    public void FixedUpdate() {
         client?.Tick();
     }
 
-    public override void OnApplicationQuit() {
+    public void OnApplicationQuit() {
         client.Disconnect();
     }
 

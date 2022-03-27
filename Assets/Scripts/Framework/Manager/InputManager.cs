@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : Mono {
-    public override void Update() {
+public class InputManager : IUpdate {
+    public void Update() {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         if (Mathf.Abs(h) > 0.1f || Mathf.Abs(v) > 0.1f)

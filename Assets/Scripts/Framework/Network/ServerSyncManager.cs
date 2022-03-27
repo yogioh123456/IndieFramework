@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// 服务器同步管理
 /// </summary>
-public class ServerSyncManager : Mono {
+public class ServerSyncManager : IFixedUpdate {
     public List<NetworkTimeMessage> cmdList = new List<NetworkTimeMessage>();
     private Queue<NetworkTimeMessage> copyCmd = new Queue<NetworkTimeMessage>();
     
@@ -130,7 +130,7 @@ public class ServerSyncManager : Mono {
 
     private int lisInt = 0;
     
-    public override void FixedUpdate()
+    public void FixedUpdate()
     {
         /*
         if (copyCmd.Count > 0)
