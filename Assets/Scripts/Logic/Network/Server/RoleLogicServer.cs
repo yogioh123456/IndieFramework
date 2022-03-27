@@ -24,7 +24,8 @@ public class RoleLogicServer {
         Message messageToSend = Message.Create(MessageSendMode.reliable, Msg.createPlayer);
         messageToSend.AddUShort(playerId);
         Game.ServerNet.SendToAll(messageToSend);
-        
+        //
+        Game.GetComp<ServerSyncManager>().AddCmdMsg(0, Msg.createPlayer, playerId);
         
         //保存服务器状态
         PlayerServerData player = new PlayerServerData();
@@ -36,9 +37,16 @@ public class RoleLogicServer {
     [MessageHandler((ushort) Msg.playerMove)]
     public static void PlayerMove(ushort fromClientId, Message message) {
         Message messageToSend = Message.Create(MessageSendMode.reliable, Msg.playerMove);
-        messageToSend.AddUShort(fromClientId);
-        messageToSend.AddVector3(message.GetVector3());
-        messageToSend.AddVector3(message.GetVector3());
+
+        ushort playerId = message.GetUShort();
+        Vector3 pos = message.GetVector3();
+        Vector3 dir = message.GetVector3();
+        
+        messageToSend.AddUShort(playerId);
+        messageToSend.AddVector3(pos);
+        messageToSend.AddVector3(dir);
         Game.ServerNet.SendToAll(messageToSend);
+        //
+        Game.GetComp<ServerSyncManager>().AddCmdMsg(0, Msg.playerMove, playerId, pos, dir);
     }
 }
