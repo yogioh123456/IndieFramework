@@ -21,8 +21,8 @@ public class PlayerManager
 
     public void SetPlayerPos(ushort id, Vector3 pos, Vector3 forward)
     {
-        //TODO:真正的同步是不需要这一步的
-        if (playerControlDic.ContainsKey(id))
+        //不同步自己，只同步别人
+        if (playerControlDic.ContainsKey(id) && id != Game.ClientNet.ID)
         {
             Transform transform = playerControlDic[id].playerObj.transform; 
             transform.position = pos;
