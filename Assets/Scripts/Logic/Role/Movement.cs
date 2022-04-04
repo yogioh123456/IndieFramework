@@ -16,10 +16,15 @@ public class Movement : Entity {
         base.Dispose();
     }
 
-    [EventMsg]
-    private void MoveInput(Vector3 vector3) {
+    public void Move(Vector3 vector3)
+    {
         target.transform.Translate(vector3 * 0.05f);
         SendMove();
+    }
+    
+    [EventMsg]
+    private void Pose() {
+        
     }
 
     private void SendMove()

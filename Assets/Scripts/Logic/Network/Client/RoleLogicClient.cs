@@ -18,9 +18,10 @@ public class RoleLogicClient {
         ushort playerId = message.GetUShort();
         Debug.Log("客户端创建玩家" + playerId + "  " + Game.ClientNet.ID);
         if (playerId == Game.ClientNet.ID) {
-            Game.GetComp<PlayerManager>().AddPlayer(playerId);
+            PlayerControl playerControl = Game.GetComp<PlayerManager>().AddPlayer(playerId);
+            playerControl.AddComp<InputListener>(playerControl);//本地玩家加入输入监听
         } else {
-            Game.GetComp<PlayerManager>().AddOtherPlayer(playerId);
+            Game.GetComp<PlayerManager>().AddPlayer(playerId);
         }
     }
     

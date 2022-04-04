@@ -60,6 +60,41 @@ public class Entity
         return default;
     }
 
+    public void RemoveComp<T>(T t)
+    {
+        Type type = typeof (T);
+        if (compDic.ContainsKey(type))
+        {
+            if (compDic[type] is Entity entity)
+            {
+                if (entity.compDic.Count > 0)
+                {
+                    foreach (var one in entity.compDic)
+                    {
+                        Type c = one.Key;
+                        RemoveComp(c);
+                    }
+                }
+                else
+                {
+                    if (compDic[type] is IUpdate update)
+                    {
+                        updateList.Remove(update);
+                    }
+                    if (compDic[type] is IFixedUpdate fixedUpdate)
+                    {
+                        fixedUpdateList.Remove(fixedUpdate);
+                    }
+                    if (compDic[type] is IApplicationQuit applicationQuit)
+                    {
+                        applicationList.Remove(applicationQuit);
+                    }
+                }
+            }
+            compDic.Remove(type);
+        }
+    }
+
     public virtual void Dispose() {
         foreach (var one in compDic) {
             if (one.Value is Entity entity) {

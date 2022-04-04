@@ -5,19 +5,16 @@ using UnityEngine;
 public class PlayerManager
 {
     private Dictionary<ushort, PlayerControl> playerControlDic = new Dictionary<ushort, PlayerControl>();
-    
-    public void AddPlayer(ushort id) {
-        PlayerNetData player = new PlayerNetData();
-        PlayerControl playerControl = new PlayerControl(player);
-        playerControl.AddComp<Movement>(playerControl.playerObj);
-        playerControlDic.Add(id, playerControl);
-    }
-    
-    public void AddOtherPlayer(ushort id) {
+
+    public PlayerControl AddPlayer(ushort id) {
         PlayerNetData player = new PlayerNetData();
         player.id = id;
         PlayerControl playerControl = new PlayerControl(player);
+        var animator = playerControl.playerObj.GetComponent<Animator>();
+        playerControl.AddComp<RoleStateManager>(animator);
+        playerControl.AddComp<Movement>(playerControl.playerObj);
         playerControlDic.Add(id, playerControl);
+        return playerControl;
     }
     
     public void AddOtherPlayer(PlayerNetData player) {

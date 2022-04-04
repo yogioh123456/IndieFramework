@@ -6,9 +6,11 @@ public class InputManager : IUpdate {
     public void Update() {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-        if (Mathf.Abs(h) > 0.1f || Mathf.Abs(v) > 0.1f)
+        Game.Event.Dispatch("MoveInput", new Vector3(h, 0, v));
+
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            Game.Event.Dispatch("MoveInput", new Vector3(h, 0, v));
+            Game.Event.Dispatch("Pose");
         }
     }
 }
