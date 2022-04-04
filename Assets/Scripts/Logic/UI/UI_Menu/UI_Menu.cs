@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using RiptideNetworking;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,9 +32,9 @@ public class UI_Menu : UGUICtrl
         selfView.btnClient.AddButtonEvent(() =>
         {
             string ip = "127.0.0.1";
-            if (!string.IsNullOrEmpty(selfView.inputSend.text))
+            if (!string.IsNullOrEmpty(selfView.inputIP.text))
             {
-                ip = selfView.inputSend.text;
+                ip = selfView.inputIP.text;
             }
             Game.ClientNet.Connect(ip, 7778);
             Game.ClientNet.connectedAction = () => {
