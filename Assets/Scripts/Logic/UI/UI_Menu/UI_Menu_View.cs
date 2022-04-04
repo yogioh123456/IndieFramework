@@ -17,4 +17,5 @@ public class UI_Menu_View : UGUIView
     public Button btnSend;
     public InputField inputSend;
     public InputField playerName;
+    public InputField inputIP;
 }

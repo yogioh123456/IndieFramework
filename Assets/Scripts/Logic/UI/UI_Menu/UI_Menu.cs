@@ -28,8 +28,14 @@ public class UI_Menu : UGUICtrl
                 ClosePanel();
             };
         });
-        selfView.btnClient.AddButtonEvent(() => {
-            Game.ClientNet.Connect("127.0.0.1", 7778);
+        selfView.btnClient.AddButtonEvent(() =>
+        {
+            string ip = "127.0.0.1";
+            if (!string.IsNullOrEmpty(selfView.inputSend.text))
+            {
+                ip = selfView.inputSend.text;
+            }
+            Game.ClientNet.Connect(ip, 7778);
             Game.ClientNet.connectedAction = () => {
                 //CreatePlayer();
                 ClosePanel();
