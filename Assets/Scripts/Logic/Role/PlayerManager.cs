@@ -6,15 +6,11 @@ public class PlayerManager
 {
     private Dictionary<ushort, PlayerControl> playerControlDic = new Dictionary<ushort, PlayerControl>();
 
-    public PlayerControl AddPlayer(ushort id) {
+    public void AddPlayer(ushort id) {
         PlayerNetData player = new PlayerNetData();
         player.id = id;
         PlayerControl playerControl = new PlayerControl(player);
-        var animator = playerControl.playerObj.GetComponent<Animator>();
-        playerControl.AddComp<RoleStateManager>(animator);
-        playerControl.AddComp<Movement>(playerControl.playerObj);
         playerControlDic.Add(id, playerControl);
-        return playerControl;
     }
     
     public void AddOtherPlayer(PlayerNetData player) {
@@ -30,6 +26,15 @@ public class PlayerManager
             Transform transform = playerControlDic[id].playerObj.transform; 
             transform.position = pos;
             transform.forward = forward.normalized;
+        }
+    }
+    
+    public void SetPlayerState(ushort id, RoleState state)
+    {
+        //不同步自己，只同步别人
+        if (playerControlDic.ContainsKey(id) && id != Game.ClientNet.ID)
+        {
+            playerControlDic[id].roleStateManager.SetState(state);
         }
     }
 

@@ -33,6 +33,21 @@ public class RoleLogicServer {
         Game.ServerMain.serverRoleManager.AddPlayer(playerId, player);
     }
     
+    //创建玩家
+    [MessageHandler((ushort)Msg.RoleState)]
+    public static void RoleState(ushort fromClientId, Message message) {
+        ushort playerId = message.GetUShort();
+        byte state = message.GetByte();
+        Message messageToSend = Message.Create(MessageSendMode.reliable, Msg.RoleState);
+        messageToSend.AddUShort(playerId);
+        messageToSend.AddUShort(state);
+        Game.ServerNet.SendToAll(messageToSend);
+        //TODO:保存消息
+        //Game.GetComp<ServerSyncManager>().AddCmdMsg(0, Msg.RoleState, playerId);
+        
+        Game.ServerMain.serverRoleManager.SetPlayerState(playerId, state);
+    }
+    
     //玩家移动
     [MessageHandler((ushort) Msg.PlayerMove)]
     public static void PlayerMove(ushort fromClientId, Message message) {

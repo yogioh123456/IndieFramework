@@ -17,12 +17,15 @@ public class RoleLogicClient {
     {
         ushort playerId = message.GetUShort();
         Debug.Log("客户端创建玩家" + playerId + "  " + Game.ClientNet.ID);
+        /*
         if (playerId == Game.ClientNet.ID) {
             PlayerControl playerControl = Game.GetComp<PlayerManager>().AddPlayer(playerId);
             playerControl.AddComp<InputListener>(playerControl);//本地玩家加入输入监听
         } else {
             Game.GetComp<PlayerManager>().AddPlayer(playerId);
         }
+        */
+        Game.GetComp<PlayerManager>().AddPlayer(playerId);
     }
     
     [MessageHandler((ushort)Msg.Connected)]
@@ -63,5 +66,13 @@ public class RoleLogicClient {
                 Game.GetComp<PlayerManager>().AddOtherPlayer(one);
             }
         }
+    }
+    
+    [MessageHandler((ushort)Msg.RoleState)]
+    private static void RoleState(Message message)
+    {
+        ushort id = message.GetUShort();
+        RoleState roleState = (RoleState)message.GetByte();
+        Game.GetComp<PlayerManager>().SetPlayerState(id, roleState);
     }
 }

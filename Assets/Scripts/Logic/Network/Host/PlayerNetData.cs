@@ -8,4 +8,5 @@ public class PlayerNetData
     public string name;
     public Vector3Serializable pos;
     public Vector3Serializable dir;
+    public byte roleState;
 }

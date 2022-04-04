@@ -8,23 +8,16 @@ public class Movement : Entity {
     
     public Movement(GameObject player) {
         target = player;
-        this.RegisterEvent();
     }
 
     public override void Dispose() {
-        this.UnregisterEvent();
         base.Dispose();
     }
-
-    public void Move(Vector3 vector3)
+    
+    public void RoleMove(Vector3 vector3)
     {
         target.transform.Translate(vector3 * 0.05f);
         SendMove();
-    }
-    
-    [EventMsg]
-    private void Pose() {
-        
     }
 
     private void SendMove()

@@ -6,4 +6,5 @@
     PlayerMove,
     Connected,
     ServerRoleData,
+    RoleState,
 }

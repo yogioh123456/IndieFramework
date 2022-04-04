@@ -47,6 +47,16 @@ public class ServerRoleManager : Entity,IUpdate
         playerDic[id].dir = dir.normalized;
     }
 
+    public void SetPlayerState(ushort id, byte state)
+    {
+        if (!playerDic.ContainsKey(id))
+        {
+            Debug.LogError("玩家不存在" + id);
+            return;
+        }
+        playerDic[id].roleState = state;
+    }
+    
     public void RemovePlayer(ushort id)
     {
         playerDic.Remove(id);
