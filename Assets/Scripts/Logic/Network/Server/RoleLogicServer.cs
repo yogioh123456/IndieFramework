@@ -24,9 +24,7 @@ public class RoleLogicServer {
         Message messageToSend = Message.Create(MessageSendMode.reliable, Msg.CreatePlayer);
         messageToSend.AddUShort(playerId);
         Game.ServerNet.SendToAll(messageToSend);
-        //
-        Game.GetComp<ServerSyncManager>().AddCmdMsg(0, Msg.CreatePlayer, playerId);
-        
+
         //保存服务器状态
         PlayerNetData player = new PlayerNetData();
         player.id = playerId;
@@ -42,9 +40,7 @@ public class RoleLogicServer {
         messageToSend.AddUShort(playerId);
         messageToSend.AddUShort(state);
         Game.ServerNet.SendToAll(messageToSend);
-        //TODO:保存消息
-        //Game.GetComp<ServerSyncManager>().AddCmdMsg(0, Msg.RoleState, playerId);
-        
+
         Game.ServerMain.serverRoleManager.SetPlayerState(playerId, state);
     }
     
@@ -63,7 +59,5 @@ public class RoleLogicServer {
         messageToSend.AddVector3(pos);
         messageToSend.AddVector3(dir);
         Game.ServerNet.SendToAll(messageToSend);
-        //
-        Game.GetComp<ServerSyncManager>().AddCmdMsg(0, Msg.PlayerMove, playerId, pos, dir);
     }
 }

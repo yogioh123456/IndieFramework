@@ -54,6 +54,7 @@ public class RoleStateManager : Entity, IUpdate
     {
         if (IsLocalPlayer())
         {
+            //建议把时间戳也上传上去，这样客户端可以将播放到一半的动画还原
             Game.ClientNet.Send(Msg.RoleState, (byte)curState);
         }
     }
