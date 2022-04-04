@@ -154,22 +154,8 @@ public class ServerSyncManager : IFixedUpdate {
     // 新玩家登陆进行追帧
     public void ClientConnected(ushort id)
     {
-        //克隆数据 追帧，追完后 通知玩家重连成功
-        
-        // 尝试直接执行所有网络命令
-        //copyCmd = cmdList.Clone();
-
-        NetworkTimeMessage[] array = new NetworkTimeMessage[cmdList.Count];
-        cmdList.CopyTo(array, 0);
-        
-        Debug.Log("数据长度" + array.Length);
-        
-        for (int i = 0; i < array.Length; i++)
-        {
-            //copyCmd.Enqueue(array[i]);
-        }
-        
-        
+        //追帧还原
+        /*
         for (int i = 0; i < cmdList.Count; i++)
         {
             var message = cmdList[i];
@@ -177,14 +163,18 @@ public class ServerSyncManager : IFixedUpdate {
             Game.ServerNet.Send(message.msg, id);
             //break;
         }
+        */
         
         
         //通知玩家连接成功
-        Message messageToSend = Message.Create(MessageSendMode.reliable, Msg.connected);
+        Message messageToSend = Message.Create(MessageSendMode.reliable, Msg.Connected);
         Game.ServerNet.Send(messageToSend, id);
         //copyCmd.Enqueue(new NetworkTimeMessage(messageToSend, 1));
         //AddCmdMsg(0, Msg.connected);
 
+        //将服务器数据下发给玩家
+        Game.ServerMain.serverRoleManager.Reconnected(id);
+        
         tempId = id;
     }
 

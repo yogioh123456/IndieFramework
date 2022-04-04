@@ -6,6 +6,9 @@ using UnityEngine;
 public class Entity
 {
     public Dictionary<Type, object> compDic = new Dictionary<Type, object>();
+    public List<IUpdate> updateList = new List<IUpdate>();
+    public List<IFixedUpdate> fixedUpdateList = new List<IFixedUpdate>();
+    public List<IApplicationQuit> applicationList = new List<IApplicationQuit>();
     
     /// <summary>
     /// 添加组件
@@ -20,6 +23,19 @@ public class Entity
         if (!compDic.ContainsKey(type))
         {
             compDic.Add(type, t);
+            
+            if (t is IUpdate update)
+            {
+                updateList.Add(update);
+            }
+            if (t is IFixedUpdate fixedUpdate)
+            {
+                fixedUpdateList.Add(fixedUpdate);
+            }
+            if (t is IApplicationQuit applicationQuit)
+            {
+                applicationList.Add(applicationQuit);
+            }
         }
         else
         {

@@ -1,9 +1,10 @@
-﻿using RiptideNetworking;
+﻿using System.Collections.Generic;
+using RiptideNetworking;
 using UnityEngine;
 
-public class ChatLogicClient {
+public class RoleLogicClient {
     //客户端接收消息
-    [MessageHandler((ushort)Msg.chat)]
+    [MessageHandler((ushort)Msg.Chat)]
     private static void PlayerChat(Message message)
     {
         ushort playerId = message.GetUShort();
@@ -11,7 +12,7 @@ public class ChatLogicClient {
         Debug.Log("客户端聊天" + playerId + str);
     }
     
-    [MessageHandler((ushort)Msg.createPlayer)]
+    [MessageHandler((ushort)Msg.CreatePlayer)]
     private static void PlayerCreate(Message message)
     {
         ushort playerId = message.GetUShort();
@@ -23,19 +24,43 @@ public class ChatLogicClient {
         }
     }
     
-    [MessageHandler((ushort)Msg.connected)]
+    [MessageHandler((ushort)Msg.Connected)]
     private static void PlayerConnected(Message message)
     {
         Debug.Log("连接服务器成功");
-        Game.ClientNet.Send(Msg.createPlayer);
+        Game.ClientNet.Send(Msg.CreatePlayer);
     }
     
-    [MessageHandler((ushort)Msg.playerMove)]
+    [MessageHandler((ushort)Msg.PlayerMove)]
     private static void PlayerMove(Message message)
     {
         ushort id = message.GetUShort();
         Vector3 pos = message.GetVector3();
         Vector3 dir = message.GetVector3();
         Game.GetComp<PlayerManager>().SetPlayerPos(id, pos, dir);
+    }
+    
+    [MessageHandler((ushort)Msg.RemovePlayer)]
+    private static void PlayerRemove(Message message)
+    {
+        ushort id = message.GetUShort();
+        Game.GetComp<PlayerManager>().RemovePlayer(id);
+    }
+    
+    // 恢复其他玩家的数据
+    [MessageHandler((ushort)Msg.ServerRoleData)]
+    private static void RoleDataRecovery(Message message)
+    {
+        var id = message.GetUShort();
+        Debug.LogError(id);
+        var data = message.GetBytes(true);
+        var list = (List<PlayerNetData>) data.Bytes2Object();
+
+        foreach (var one in list)
+        {
+            if (one.id != Game.ClientNet.ID) {
+                Game.GetComp<PlayerManager>().AddOtherPlayer(one);
+            }
+        }
     }
 }

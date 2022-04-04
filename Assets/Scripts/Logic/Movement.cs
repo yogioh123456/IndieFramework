@@ -25,7 +25,7 @@ public class Movement : Entity {
     private void SendMove()
     {
         //发送不可靠的消息
-        Message message = Message.Create(MessageSendMode.unreliable, Msg.playerMove, shouldAutoRelay: true);
+        Message message = Message.Create(MessageSendMode.unreliable, Msg.PlayerMove, shouldAutoRelay: true);
         message.AddUShort(Game.ClientNet.ID);
         message.AddVector3(target.transform.position);
         message.AddVector3(target.transform.forward);

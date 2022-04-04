@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : Entity {
-    private Player player;
+    private PlayerNetData player;
     public GameObject playerObj;
     
-    public PlayerControl(Player player) {
+    public PlayerControl(PlayerNetData player) {
         this.player = player;
         playerObj = Game.Asset.LoadAsset("Prefabs/hero");
-        playerObj.SetZero();
+        Debug.LogError(player.pos);
+        playerObj.transform.position = player.pos;
+        playerObj.transform.forward = player.dir;
     }
 }

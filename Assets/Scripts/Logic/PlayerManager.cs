@@ -7,16 +7,22 @@ public class PlayerManager
     private Dictionary<ushort, PlayerControl> playerControlDic = new Dictionary<ushort, PlayerControl>();
     
     public void AddPlayer(ushort id) {
-        Player player = new Player();
+        PlayerNetData player = new PlayerNetData();
         PlayerControl playerControl = new PlayerControl(player);
         playerControl.AddComp<Movement>(playerControl.playerObj);
         playerControlDic.Add(id, playerControl);
     }
     
     public void AddOtherPlayer(ushort id) {
-        Player player = new Player();
+        PlayerNetData player = new PlayerNetData();
+        player.id = id;
         PlayerControl playerControl = new PlayerControl(player);
         playerControlDic.Add(id, playerControl);
+    }
+    
+    public void AddOtherPlayer(PlayerNetData player) {
+        PlayerControl playerControl = new PlayerControl(player);
+        playerControlDic.Add(player.id, playerControl);
     }
 
     public void SetPlayerPos(ushort id, Vector3 pos, Vector3 forward)
@@ -27,6 +33,16 @@ public class PlayerManager
             Transform transform = playerControlDic[id].playerObj.transform; 
             transform.position = pos;
             transform.forward = forward.normalized;
+        }
+    }
+
+    public void RemovePlayer(ushort id)
+    {
+        if (playerControlDic.ContainsKey(id))
+        {
+            var player = playerControlDic[id];
+            Object.Destroy(player.playerObj);
+            playerControlDic.Remove(id);
         }
     }
 }

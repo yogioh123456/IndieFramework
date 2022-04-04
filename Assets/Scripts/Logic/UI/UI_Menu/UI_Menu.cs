@@ -48,7 +48,7 @@ public class UI_Menu : UGUICtrl
             Game.Client.client.Send(message);
             */
 
-            Game.ClientNet.Send(Msg.chat, playerName + chatContent);
+            Game.ClientNet.Send(Msg.Chat, playerName + chatContent);
         });
     }
 
@@ -63,6 +63,6 @@ public class UI_Menu : UGUICtrl
 
     private void CreatePlayer() {
         //通知服务器
-        Game.ClientNet.Send(Msg.createPlayer);
+        Game.ClientNet.Send(Msg.CreatePlayer);
     }
 }
