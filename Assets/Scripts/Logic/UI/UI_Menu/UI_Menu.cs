@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using RiptideNetworking;
+using RiptideNetworking.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,6 +38,7 @@ public class UI_Menu : UGUICtrl
                 ip = selfView.inputIP.text;
             }
             Game.ClientNet.Connect(ip, 7778);
+            //Game.ClientNet.Connect("43.249.193.55", 57715);
             Game.ClientNet.connectedAction = () => {
                 //CreatePlayer();
                 ClosePanel();
@@ -56,6 +58,16 @@ public class UI_Menu : UGUICtrl
             */
 
             Game.ClientNet.Send(Msg.Chat, playerName + chatContent);
+        });
+        selfView.btnRoom.AddButtonEvent(() =>
+        {
+            var lan = new LanDiscovery(123, 7778);
+            lan.SendBroadcast();
+        });
+        selfView.btnFind.AddButtonEvent(() =>
+        {
+            var lan = new LanDiscovery(123, 7778);
+            lan.StartListening();
         });
     }
 

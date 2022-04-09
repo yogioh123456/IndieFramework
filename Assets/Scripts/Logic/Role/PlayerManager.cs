@@ -23,8 +23,8 @@ public class PlayerManager
         //不同步自己，只同步别人
         if (playerControlDic.ContainsKey(id) && id != Game.ClientNet.ID)
         {
-            Transform transform = playerControlDic[id].playerObj.transform; 
-            transform.position = pos;
+            Transform transform = playerControlDic[id].playerObj.transform;
+            transform.position = Vector3.Lerp(transform.position, pos, 2);
             transform.forward = forward.normalized;
         }
     }
