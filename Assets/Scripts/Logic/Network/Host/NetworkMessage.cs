@@ -1,7 +1,10 @@
 ﻿public enum Msg : ushort
 {
-    chat = 1,
-    createPlayer,
-    playerMove,
-    connected,
+    Chat = 1,
+    CreatePlayer,
+    RemovePlayer,
+    PlayerMove,
+    Connected,
+    ServerRoleData,
+    RoleState,
 }

@@ -13,8 +13,11 @@ public class UI_Menu_View : UGUIView
     //---------------字段---------------
     public Button btnServer;
     public Button btnClient;
+    public Button btnRoom;
+    public Button btnFind;
     public Text textContent;
     public Button btnSend;
     public InputField inputSend;
     public InputField playerName;
+    public InputField inputIP;
 }

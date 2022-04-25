@@ -8,36 +8,13 @@ using UnityEngine;
 /// </summary>
 public class ServerSyncManager : IFixedUpdate {
     public List<NetworkTimeMessage> cmdList = new List<NetworkTimeMessage>();
-    private Queue<NetworkTimeMessage> copyCmd = new Queue<NetworkTimeMessage>();
-    
 
-    // 接受发送的命令
-    public void AddCmd(object data, ServerMessageReceivedEventArgs msg, uint nowTick) {
-        //NetworkTimeMessage networkTimeMessage = new NetworkTimeMessage(data, msg, nowTick);
-        //cmdList.Add(networkTimeMessage);
+    // 接受并且存储发送的命令，为战报作准备
+    public void AddCmd(ServerMessageReceivedEventArgs msg, uint nowTick,object data)
+    {
+        NetworkTimeMessage networkTimeMessage = new NetworkTimeMessage(msg.Message, nowTick, data);
+        cmdList.Add(networkTimeMessage);
         //ExcuteState();
-    }
-
-    public void AddCmdMsg(uint nowTick, Enum id) {
-        Message message = Message.Create(MessageSendMode.reliable, id, shouldAutoRelay: true);
-        NetworkTimeMessage networkTimeMessage = new NetworkTimeMessage(message, nowTick);
-        cmdList.Add(networkTimeMessage);
-    }
-    
-    public void AddCmdMsg<T>(uint nowTick, Enum id, T t) {
-        Message message = Message.Create(MessageSendMode.reliable, id, shouldAutoRelay: true);
-        MessageAdd(message, t);
-        NetworkTimeMessage networkTimeMessage = new NetworkTimeMessage(message, nowTick);
-        cmdList.Add(networkTimeMessage);
-    }
-    
-    public void AddCmdMsg<T,K,V>(uint nowTick, Enum id, T t, K k, V v) {
-        Message message = Message.Create(MessageSendMode.reliable, id, shouldAutoRelay: true);
-        MessageAdd(message, t);
-        MessageAdd(message, k);
-        MessageAdd(message, v);
-        NetworkTimeMessage networkTimeMessage = new NetworkTimeMessage(message, nowTick);
-        cmdList.Add(networkTimeMessage);
     }
 
     private delegate void MessageDelegate<Message, T>(Message msg, T t);
@@ -150,26 +127,21 @@ public class ServerSyncManager : IFixedUpdate {
         }
         */
     }
+
+    // 战报还原
+    public void BattleRecovery()
+    {
+        for (int i = 0; i < cmdList.Count; i++)
+        {
+            
+        }
+    }
     
     // 新玩家登陆进行追帧
     public void ClientConnected(ushort id)
     {
-        //克隆数据 追帧，追完后 通知玩家重连成功
-        
-        // 尝试直接执行所有网络命令
-        //copyCmd = cmdList.Clone();
-
-        NetworkTimeMessage[] array = new NetworkTimeMessage[cmdList.Count];
-        cmdList.CopyTo(array, 0);
-        
-        Debug.Log("数据长度" + array.Length);
-        
-        for (int i = 0; i < array.Length; i++)
-        {
-            //copyCmd.Enqueue(array[i]);
-        }
-        
-        
+        //追帧还原
+        /*
         for (int i = 0; i < cmdList.Count; i++)
         {
             var message = cmdList[i];
@@ -177,14 +149,18 @@ public class ServerSyncManager : IFixedUpdate {
             Game.ServerNet.Send(message.msg, id);
             //break;
         }
+        */
         
         
         //通知玩家连接成功
-        Message messageToSend = Message.Create(MessageSendMode.reliable, Msg.connected);
+        Message messageToSend = Message.Create(MessageSendMode.reliable, Msg.Connected);
         Game.ServerNet.Send(messageToSend, id);
         //copyCmd.Enqueue(new NetworkTimeMessage(messageToSend, 1));
         //AddCmdMsg(0, Msg.connected);
 
+        //将服务器数据下发给玩家
+        Game.ServerMain.serverRoleManager.Reconnected(id);
+        
         tempId = id;
     }
 
@@ -196,13 +172,13 @@ public class ServerSyncManager : IFixedUpdate {
 }
 
 public class NetworkTimeMessage {
-    public NetworkTimeMessage(Message msg, uint nowTick) {
+    public NetworkTimeMessage(Message msg, uint nowTick, object data) {
         this.nowTick = nowTick;
         this.msg = msg;
-        
-        
+        this.data = data;
     }
 
     public uint nowTick;
     public Message msg;
+    public object data;
 }

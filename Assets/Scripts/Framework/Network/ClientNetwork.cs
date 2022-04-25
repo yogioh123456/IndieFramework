@@ -97,6 +97,9 @@ public class ClientNetwork : IFixedUpdate,IApplicationQuit
         } else if (typeof(T) == typeof(short)) {
             MessageDelegate<Message, short> add = AddShort;
             (add as MessageDelegate<Message, T>)?.Invoke(message, t);
+        } else if (typeof(T) == typeof(ushort)) {
+            MessageDelegate<Message, ushort> add = AddUShort;
+            (add as MessageDelegate<Message, T>)?.Invoke(message, t);
         } else if (typeof(T) == typeof(byte)) {
             MessageDelegate<Message, byte> add = AddByte;
             (add as MessageDelegate<Message, T>)?.Invoke(message, t);
@@ -115,6 +118,9 @@ public class ClientNetwork : IFixedUpdate,IApplicationQuit
     #region AddMsg
     private void AddShort(Message message, short data) {
         message.AddShort(data);
+    }
+    private void AddUShort(Message message, ushort data) {
+        message.AddUShort(data);
     }
     private void AddLong(Message message, long data) {
         message.AddLong(data);

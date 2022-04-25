@@ -35,6 +35,22 @@ public class EntityStatic
             {
                 applicationList.Add(applicationQuit);
             }
+
+            if (t is Entity entity)
+            {
+                foreach (var one in entity.updateList)
+                {
+                    updateList.Add(one);
+                }
+                foreach (var one in entity.fixedUpdateList)
+                {
+                    fixedUpdateList.Add(one);
+                }
+                foreach (var one in entity.applicationList)
+                {
+                    applicationList.Add(one);
+                }
+            }
         }
         else
         {

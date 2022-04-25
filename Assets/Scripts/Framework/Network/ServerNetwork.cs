@@ -27,7 +27,7 @@ public class ServerNetwork : IFixedUpdate, IApplicationQuit {
     }
     
     private void OnMessageReceived(object sender, ServerMessageReceivedEventArgs e) {
-        Game.GetComp<ServerSyncManager>().AddCmd(sender, e, timeTick);
+        Game.GetComp<ServerSyncManager>().AddCmd(e, timeTick, sender);
     }
 
     private void OnClientDisconnected(object data, ClientDisconnectedEventArgs e) {

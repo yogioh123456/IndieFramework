@@ -6,6 +6,9 @@ using UnityEngine;
 public class Entity
 {
     public Dictionary<Type, object> compDic = new Dictionary<Type, object>();
+    public List<IUpdate> updateList = new List<IUpdate>();
+    public List<IFixedUpdate> fixedUpdateList = new List<IFixedUpdate>();
+    public List<IApplicationQuit> applicationList = new List<IApplicationQuit>();
     
     /// <summary>
     /// 添加组件
@@ -20,6 +23,19 @@ public class Entity
         if (!compDic.ContainsKey(type))
         {
             compDic.Add(type, t);
+            
+            if (t is IUpdate update)
+            {
+                updateList.Add(update);
+            }
+            if (t is IFixedUpdate fixedUpdate)
+            {
+                fixedUpdateList.Add(fixedUpdate);
+            }
+            if (t is IApplicationQuit applicationQuit)
+            {
+                applicationList.Add(applicationQuit);
+            }
         }
         else
         {
@@ -42,6 +58,41 @@ public class Entity
             return (T)compDic[type];
         }
         return default;
+    }
+
+    public void RemoveComp<T>(T t)
+    {
+        Type type = typeof (T);
+        if (compDic.ContainsKey(type))
+        {
+            if (compDic[type] is Entity entity)
+            {
+                if (entity.compDic.Count > 0)
+                {
+                    foreach (var one in entity.compDic)
+                    {
+                        Type c = one.Key;
+                        RemoveComp(c);
+                    }
+                }
+                else
+                {
+                    if (compDic[type] is IUpdate update)
+                    {
+                        updateList.Remove(update);
+                    }
+                    if (compDic[type] is IFixedUpdate fixedUpdate)
+                    {
+                        fixedUpdateList.Remove(fixedUpdate);
+                    }
+                    if (compDic[type] is IApplicationQuit applicationQuit)
+                    {
+                        applicationList.Remove(applicationQuit);
+                    }
+                }
+            }
+            compDic.Remove(type);
+        }
     }
 
     public virtual void Dispose() {
