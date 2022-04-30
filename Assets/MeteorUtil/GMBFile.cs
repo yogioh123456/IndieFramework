@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using UnityEngine;
+using I18N.CJK;
 
 public class GMBFile
 {

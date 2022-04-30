@@ -1,0 +1,35 @@
+local class = {}
+function npc14_02()
+	class.Name = "铁枪哨兵";
+	class.Model = 8;
+	class.Weapon = 7;
+	class.Weapon2 = 2;
+	class.Team = 2;
+	class.View = 500;
+	class.Think = 60;
+	class.Attack1 = 50;
+	class.Attack2 = 30;
+	class.Attack3 = 0;
+	class.Guard = 10;
+	class.Dodge = 5;
+	class.Jump = 5;
+	class.Look = 5;
+	class.Burst = 5;
+	class.Aim = 60;
+	class.GetItem = 10;
+	class.Spawn = 33;
+	class.HP = 1000;	
+
+	class.g_selfAddr = 0;
+	class.g_self = 0;
+	return class;
+end
+
+function class:OnInit(a)
+	class.g_selfAddr = a;
+end
+
+function class:OnStart()
+	class.g_self = GetSelf(class.g_selfAddr);
+	ChangeBehavior(class.g_self, "wait");
+end

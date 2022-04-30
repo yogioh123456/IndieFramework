@@ -1,0 +1,36 @@
+local class = {}
+
+function npc13_01()
+	class.Name = "冷燕";
+	class.Model =	1;
+	class.Weapon = 13;
+	class.Weapon2 = 14;
+	class.Team = 1;
+	class.View = 500;
+	class.Think = 100;
+	class.Attack1	= 30;
+	class.Attack2 = 30;
+	class.Attack3 = 20;
+	class.Guard =	10;
+	class.Dodge =	10;
+	class.Jump = 2;
+	class.Look = 5;
+	class.Burst = 10;
+	class.Aim = 80;
+	class.GetItem = 0;
+	class.Spawn = 62;
+	class.HP = 2000;
+	
+	class.g_selfAddr = 0;
+	class.g_self = 0;
+	return class;
+end
+
+function class:OnInit(a)
+	class.g_selfAddr = a;
+end
+
+function class:OnStart()
+	class.g_self = GetSelf(class.g_selfAddr);
+	ChangeBehavior(class.g_self, "follow", "vip");
+end

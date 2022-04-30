@@ -5,16 +5,28 @@ using UnityEngine;
 
 public class MeteorMapLoader : MonoBehaviour {
     
-    public int level;
+    public string mapName;
     SortedDictionary<string, DesFile> DesFile = new SortedDictionary<string, global::DesFile>();
+    SortedDictionary<string, GMBFile> GmbFile = new SortedDictionary<string, GMBFile>();
     
     //despath 参数 sn04
-    public void LoadDesMap(string despath)
+    public void LoadDesMap()
     {
+        string despath = mapName;
         DesFile des = DesLoad(despath);
-        GMBFile gmb = GMBLoader.Ins.Load(despath);
-        if (des == null || gmb == null)
+        GMBFile gmb = GMBLoad(despath);
+        if (des == null)
+        {
+            Debug.LogError("缺少des文件");
             return;
+        }
+        
+        if (gmb == null)
+        {
+            Debug.LogError("缺少gmb文件");
+            return;
+        }
+        
         bool generateFile = true;
         if (!System.IO.Directory.Exists("Assets/Materials/" + despath + "/Resources/"))
             System.IO.Directory.CreateDirectory("Assets/Materials/" + despath + "/Resources/");
@@ -241,5 +253,32 @@ public class MeteorMapLoader : MonoBehaviour {
         f.Load(file);
         DesFile[file] = f;
         return f;
+    }
+    
+    public GMBFile GMBLoad(string file)
+    {
+        string file_no_ext = file;
+        file += ".gmb";
+        if (GmbFile.ContainsKey(file))
+            return GmbFile[file];
+        GMBFile gmb = null;
+        /*
+        if (CombatData.Ins.Chapter != null) {
+            string path = CombatData.Ins.Chapter.GetResPath(FileExt.Gmc, file_no_ext);
+            if (!string.IsNullOrEmpty(path)) {
+                gmb = new GMBFile();
+                gmb = gmb.Load(path);
+                if (gmb != null) {
+                    GmbFile.Add(file, gmb);
+                    return gmb;
+                }
+            }
+        }
+        */
+        gmb = new GMBFile();
+        GMBFile gmbOK = gmb.Load(file);
+        if (gmbOK != null)
+            GmbFile.Add(file, gmbOK);
+        return gmbOK;
     }
 }

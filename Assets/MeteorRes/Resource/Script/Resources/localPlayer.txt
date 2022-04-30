@@ -1,0 +1,7 @@
+﻿Name = "无敌门门主-独孤无敌";
+Model = 18;
+Weapon = 7;
+Weapon2 = 5;
+HP = 99999;
+function main()
+end

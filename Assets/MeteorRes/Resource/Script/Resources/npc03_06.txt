@@ -1,0 +1,35 @@
+local class = {}
+function npc03_06()
+	class.Name	= "疾剑哨兵长";
+	class.Model =	9;
+	class.Weapon = 15;
+	class.Weapon2 = 1;
+	class.Team = 2;
+	class.View = 500;
+	class.Think = 70;
+	class.Attack1	= 30;
+	class.Attack2 = 25;
+	class.Attack3 = 20;
+	class.Guard =	25;
+	class.Dodge =	0;
+	class.Jump = 10;
+	class.Look = 10;
+	class.Burst = 10;
+	class.Aim = 70;
+	class.GetItem = 10;
+	class.Spawn = 20;
+	class.HP = 2500;	
+
+	class.g_selfAddr = 0;
+	class.g_self = 0;
+	return class;
+end
+
+function class:OnInit(a)
+	class.g_selfAddr = a;
+end
+
+function class:OnStart()
+	class.g_self = GetSelf(class.g_selfAddr);
+	ChangeBehavior(class.g_self, "patrol", 20, 28, 101, 69);
+end

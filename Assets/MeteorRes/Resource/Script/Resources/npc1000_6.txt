@@ -1,0 +1,35 @@
+local class = {}
+function npc1000_6()
+	class.Name = "快活林守卫";
+	class.Model = 10;
+	class.Weapon = 12;
+	class.Weapon2 = 0;
+	class.Team = 1;
+	class.View = 1000;
+	class.Think = 50;
+	class.Attack1 = 40;
+	class.Attack2 = 40;
+	class.Attack3 = 10;
+	class.Guard = 5;
+	class.Dodge = 5;
+	class.Jump = 2;
+	class.Look = 5;
+	class.Burst = 1;
+	class.Aim = 50;
+	class.GetItem = 0;
+	class.Spawn = 14;
+	class.HP = 10000;
+	class.g_selfAddr = 0;
+	class.g_self = 0;
+	return class;
+end
+
+function class:OnInit(a)
+	class.g_selfAddr = a;
+end
+
+function class:OnStart()
+	class.g_self = GetSelf(class.g_selfAddr);
+	ChangeBehavior(class.g_self, "follow", "player");
+	--Perform(class.g_self, "guard", 99999);
+end

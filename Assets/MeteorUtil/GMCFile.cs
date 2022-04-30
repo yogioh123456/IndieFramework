@@ -1,6 +1,48 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+
+public enum ParseError
+{
+    None,
+    Miss,
+    ParseError,
+}
+
+//设计一个Shader，给出这些段作为参数，在材质球里填写这些属性段的值
+public struct ShaderUnit
+{
+    public int TextureArg0;
+    public string TextureArg1;
+    public int TwoSideArg0;
+    public string BlendArg0;
+    public string BlendArg1;
+    public string BlendArg2;
+    public float OpaqueArg0;
+}
+
+public struct MeshUnit
+{
+    public string name;
+    public float[,] Vertices;
+    public float[,] Faces;
+    public List<MeshVert> vertices;
+    public List<MeshFace> faces;
+}
+
+public struct MeshVert
+{
+    public Vector3 pos ;
+    public Vector3 normal;
+    public Color color;
+    public Vector2 uv;
+}
+public struct MeshFace
+{
+    public int material;
+    public List<int> triangle;
+}
 
 public class GMCFile
 {
