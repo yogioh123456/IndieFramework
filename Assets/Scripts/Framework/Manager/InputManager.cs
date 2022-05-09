@@ -12,5 +12,10 @@ public class InputManager : IUpdate {
         {
             Game.Event.Dispatch("Pose");
         }
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Game.Event.Dispatch("Jump");
+        }
     }
 }

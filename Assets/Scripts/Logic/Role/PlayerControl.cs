@@ -9,13 +9,13 @@ public class PlayerControl {
     public PlayerMono playerMono;
     public RoleStateManager roleStateManager;
     public Movement movement;
-    
+
     public PlayerControl(PlayerNetData player) {
         this.player = player;
         playerObj = Game.Asset.LoadAsset("Prefabs/hero");
         playerMono = playerObj.GetComponent<PlayerMono>();
         animator = playerMono.animator;
-        movement = new Movement(playerObj);
+        movement = new Movement(this);
         roleStateManager = new RoleStateManager(this);
         playerMono.updateEvent += roleStateManager.Update;
         playerObj.transform.position = player.pos;

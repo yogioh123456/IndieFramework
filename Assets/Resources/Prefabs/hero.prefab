@@ -289,6 +289,7 @@ GameObject:
   - component: {fileID: 3045862180112819231}
   - component: {fileID: 75750239520065106}
   - component: {fileID: 1738030723238968445}
+  - component: {fileID: 6675102061855242068}
   m_Layer: 0
   m_Name: hero
   m_TagString: Untagged
@@ -343,7 +344,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1b6c5de5984b26ac5f32c3dd6158f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterController: {fileID: 6675102061855242068}
   animator: {fileID: 75750239520065106}
+  jumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!143 &6675102061855242068
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2382055861617671845}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 0.94
+  m_Radius: 0.12
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.47, z: 0}
 --- !u!1 &2780980817579463479
 GameObject:
   m_ObjectHideFlags: 0

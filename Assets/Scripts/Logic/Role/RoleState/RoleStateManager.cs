@@ -7,6 +7,7 @@ public enum RoleState
     Idle,
     Move,
     Pose,
+    Jump,
 }
 
 public class RoleStateManager : Entity, IUpdate
@@ -21,6 +22,7 @@ public class RoleStateManager : Entity, IUpdate
         stateDic.Add(RoleState.Idle, new RoleIdle(this));
         stateDic.Add(RoleState.Move, new RoleMove(this));
         stateDic.Add(RoleState.Pose, new RolePose(this));
+        stateDic.Add(RoleState.Jump, new RoleImpulse(this));
         SetState(RoleState.Idle);
     }
 
@@ -62,5 +64,10 @@ public class RoleStateManager : Entity, IUpdate
     public void Update()
     {
         stateDic[curState].UpdateHandle();
+    }
+
+    public void RoleJump() {
+        SetState(RoleState.Jump);
+        Game.Event.Dispatch("RoleAddForce", Vector3.up, 2f, 0.3f, playerControl.playerMono.jumpCurve);
     }
 }
