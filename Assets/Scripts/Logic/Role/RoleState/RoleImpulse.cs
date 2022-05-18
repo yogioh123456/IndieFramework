@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// 冲击力，感觉用处不大，可再实现，根据跳跃
+/// </summary>
 public class RoleImpulse : IRoleState {
     //冲击力相关
     private Vector3 impulseDir;
@@ -23,11 +26,12 @@ public class RoleImpulse : IRoleState {
         if (impulseTime < impulseTimeAll) {
             impulseCurveValue = impulseCurve.Evaluate(Mathf.Clamp01(impulseTime / impulseTimeAll));
             impulseTime += Time.deltaTime;
+            roleStateManager.playerControl.movement.RoleMove(impulseDir * impulsePower * impulseCurveValue);
         } else {
-            //TODO:退出冲击力状态，冲击力状态最好是叠加状态
-            roleStateManager.SetState(RoleState.Idle);
+            //冲击力消失进入自由落体状态
+            roleStateManager.SetState(RoleState.Fall);
+            Game.Event.Dispatch("SetFallDir", new Vector2(impulseDir.x, impulseDir.z));
         }
-        roleStateManager.playerControl.movement.RoleMove(impulseDir * impulsePower * impulseCurveValue);
     }
 
     public void Exit() {

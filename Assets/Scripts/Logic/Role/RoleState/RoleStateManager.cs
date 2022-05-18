@@ -8,6 +8,7 @@ public enum RoleState
     Move,
     Pose,
     Jump,
+    Fall,
 }
 
 public class RoleStateManager : Entity, IUpdate
@@ -23,6 +24,7 @@ public class RoleStateManager : Entity, IUpdate
         stateDic.Add(RoleState.Move, new RoleMove(this));
         stateDic.Add(RoleState.Pose, new RolePose(this));
         stateDic.Add(RoleState.Jump, new RoleImpulse(this));
+        stateDic.Add(RoleState.Fall, new RoleFall(this));
         SetState(RoleState.Idle);
     }
 
@@ -48,6 +50,7 @@ public class RoleStateManager : Entity, IUpdate
             stateDic[curState].Exit();
         }
         curState = roleState;
+        Debug.Log("进入状态" + curState);
         stateDic[curState].Enter();
         SendRoleState();
     }
@@ -66,8 +69,8 @@ public class RoleStateManager : Entity, IUpdate
         stateDic[curState].UpdateHandle();
     }
 
-    public void RoleJump() {
+    public void RoleJump(Vector3 v3) {
         SetState(RoleState.Jump);
-        Game.Event.Dispatch("RoleAddForce", Vector3.up, 2f, 0.3f, playerControl.playerMono.jumpCurve);
+        Game.Event.Dispatch("RoleAddForce", v3, 2f, 0.3f, playerControl.playerMono.jumpCurve);
     }
 }

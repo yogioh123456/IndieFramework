@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 
-public class RoleMove : IRoleState
-{
+public class RoleMove : IRoleState {
+    private Vector2 moveDir;
     private RoleStateManager roleStateManager;
-
     public RoleMove(RoleStateManager roleStateManager)
     {
         this.roleStateManager = roleStateManager;
@@ -20,7 +19,7 @@ public class RoleMove : IRoleState
 
     public void UpdateHandle()
     {
-        //Debug.Log("move");
+
     }
 
     public void Exit()
@@ -36,6 +35,7 @@ public class RoleMove : IRoleState
     {
         float h = vector3.x;
         float v = vector3.z;
+        moveDir = new Vector2(h, v);
         if (Mathf.Abs(h) > 0.1f || Mathf.Abs(v) > 0.1f)
         {
             roleStateManager.playerControl.movement.RoleMove(vector3);
@@ -44,5 +44,11 @@ public class RoleMove : IRoleState
         {
             roleStateManager.SetState(RoleState.Idle);
         }
+    }
+    
+    [EventMsg]
+    private void Jump()
+    {
+        roleStateManager.playerControl.movement.Jump();
     }
 }

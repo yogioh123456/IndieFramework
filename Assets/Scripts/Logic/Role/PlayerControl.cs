@@ -9,6 +9,7 @@ public class PlayerControl {
     public PlayerMono playerMono;
     public RoleStateManager roleStateManager;
     public Movement movement;
+    public bool IsGround => playerMono.characterController.isGrounded;
 
     public PlayerControl(PlayerNetData player) {
         this.player = player;
@@ -18,6 +19,7 @@ public class PlayerControl {
         movement = new Movement(this);
         roleStateManager = new RoleStateManager(this);
         playerMono.updateEvent += roleStateManager.Update;
+        playerMono.updateEvent += movement.Update;
         playerObj.transform.position = player.pos;
         playerObj.transform.forward = player.dir;
     }

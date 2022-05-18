@@ -20,7 +20,7 @@ public class RoleIdle : IRoleState
 
     public void UpdateHandle()
     {
-        roleStateManager.playerControl.movement.RoleMove(Vector3.zero);
+        
     }
 
     public void Exit()
@@ -51,6 +51,6 @@ public class RoleIdle : IRoleState
     [EventMsg]
     private void Jump()
     {
-        roleStateManager.RoleJump();
+        roleStateManager.playerControl.movement.Jump();
     }
 }
