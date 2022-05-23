@@ -7,7 +7,7 @@ public class UGUICtrl
     public string panelName;
     public UGUIView mainView;
 
-    protected void OnCreate<T>(ref T t,string path,string _panelName) where T: UGUIView, new()
+    protected Transform OnCreate<T>(ref T t,string path,string _panelName) where T: UGUIView, new()
     {
         GameObject go = Object.Instantiate(Resources.Load<GameObject>(path),Game.UI.UIRoot);
         T _ui = go.GetComponent<T>();
@@ -17,6 +17,7 @@ public class UGUICtrl
         OnRegisterEvent();
         ButtonAddClick();
         panelName = _panelName;
+        return go.transform;
     }
 
     protected virtual void Init()
