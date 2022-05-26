@@ -5,6 +5,7 @@ using RiptideNetworking;
 using RiptideNetworking.Utils;
 using UnityEngine;
 
+[GameComp]
 public class ClientNetwork : IFixedUpdate,IApplicationQuit
 {
     private Client client;

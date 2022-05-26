@@ -1,4 +1,5 @@
-﻿public class MainLogic {
+﻿[GameComp]
+public class MainLogic {
     
     /// <summary>
     /// 游戏主逻辑入口

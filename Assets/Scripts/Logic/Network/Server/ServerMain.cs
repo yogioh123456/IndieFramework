@@ -1,4 +1,5 @@
-﻿public class ServerMain : Entity
+﻿[GameComp]
+public class ServerMain : Entity
 {
     public ServerRoleManager serverRoleManager => GetComp<ServerRoleManager>();
     

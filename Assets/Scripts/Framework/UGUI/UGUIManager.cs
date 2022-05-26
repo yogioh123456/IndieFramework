@@ -8,7 +8,7 @@ using UnityEngine;
 /// 3.一个界面可以由多个UI面板组成
 /// 4.未能实现：1个返回按钮既可以关闭Window 又可以关闭 Panel，主要是这个功能和3号有冲突，如果需要实现的话，那么3号应该有1个单独的字典来维护
 /// </summary>
-[GameComp]
+[GameComp(-1)]
 public class UGUIManager
 {
     //栈结构主面板

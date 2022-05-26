@@ -6,6 +6,7 @@ using UnityEngine;
 /// <summary>
 /// 服务器同步管理
 /// </summary>
+[GameComp]
 public class ServerSyncManager : IFixedUpdate {
     public List<NetworkTimeMessage> cmdList = new List<NetworkTimeMessage>();
 

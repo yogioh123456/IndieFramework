@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[GameComp]
 public class PlayerManager
 {
     private Dictionary<ushort, PlayerControl> playerControlDic = new Dictionary<ushort, PlayerControl>();

@@ -5,6 +5,7 @@ using RiptideNetworking;
 using RiptideNetworking.Utils;
 using UnityEngine;
 
+[GameComp]
 public class ServerNetwork : IFixedUpdate, IApplicationQuit {
     private Server server;
     private delegate void ServerMessageReceived(object sender, ServerMessageReceivedEventArgs e);

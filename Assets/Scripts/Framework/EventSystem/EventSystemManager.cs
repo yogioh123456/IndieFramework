@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[GameComp]
 public class EventSystemManager
 {
     public delegate void ListenerDelegate();

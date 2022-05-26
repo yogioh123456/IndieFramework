@@ -105,7 +105,7 @@ public class {0} : UGUIView
 {{
     //---------------字段---------------
 {1}
-    public void Init(Transform trans){{
+    public void Init(Transform trans) {{
 {2}
     }}
 }}", className+"_View", uiFieldStr, uiMethodStr);

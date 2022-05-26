@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[GameComp]
 public class InputManager : IUpdate {
     public void Update() {
         float h = Input.GetAxis("Horizontal");

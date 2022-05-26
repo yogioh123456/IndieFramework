@@ -8,7 +8,7 @@ public class Main : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Game.Init();
+        Game.Init(this);
         Game.GetComp<MainLogic>().Init();
     }
     

@@ -8,7 +8,47 @@ public class EntityStatic
     protected static List<IUpdate> updateList = new List<IUpdate>();
     protected static List<IFixedUpdate> fixedUpdateList = new List<IFixedUpdate>();
     protected static List<IApplicationQuit> applicationList = new List<IApplicationQuit>();
-    
+
+    protected static void AddComp(Type type) {
+        Debug.Log(type);
+        object t = Activator.CreateInstance(type);
+        AddToComp(type, t);
+    }
+
+    private static void AddToComp(Type type, object t) {
+        if (!compDic.ContainsKey(type)) {
+            compDic.Add(type, t);
+
+            if (t is IUpdate update) {
+                updateList.Add(update);
+            }
+
+            if (t is IFixedUpdate fixedUpdate) {
+                fixedUpdateList.Add(fixedUpdate);
+            }
+
+            if (t is IApplicationQuit applicationQuit) {
+                applicationList.Add(applicationQuit);
+            }
+
+            if (t is Entity entity) {
+                foreach (var one in entity.updateList) {
+                    updateList.Add(one);
+                }
+
+                foreach (var one in entity.fixedUpdateList) {
+                    fixedUpdateList.Add(one);
+                }
+
+                foreach (var one in entity.applicationList) {
+                    applicationList.Add(one);
+                }
+            }
+        } else {
+            Debug.LogError("不能重复添加组件");
+        }
+    }
+
     /// <summary>
     /// 添加组件
     /// </summary>
@@ -18,45 +58,7 @@ public class EntityStatic
     {
         Type type = typeof (T);
         T t = (T)Activator.CreateInstance(type);
-        
-        if (!compDic.ContainsKey(type))
-        {
-            compDic.Add(type, t);
-            
-            if (t is IUpdate update)
-            {
-                updateList.Add(update);
-            }
-            if (t is IFixedUpdate fixedUpdate)
-            {
-                fixedUpdateList.Add(fixedUpdate);
-            }
-            if (t is IApplicationQuit applicationQuit)
-            {
-                applicationList.Add(applicationQuit);
-            }
-
-            if (t is Entity entity)
-            {
-                foreach (var one in entity.updateList)
-                {
-                    updateList.Add(one);
-                }
-                foreach (var one in entity.fixedUpdateList)
-                {
-                    fixedUpdateList.Add(one);
-                }
-                foreach (var one in entity.applicationList)
-                {
-                    applicationList.Add(one);
-                }
-            }
-        }
-        else
-        {
-            Debug.LogError("不能重复添加组件");
-        }
-        
+        AddToComp(type, t);
         return t;
     }
     
