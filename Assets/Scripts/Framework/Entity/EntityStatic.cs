@@ -10,7 +10,6 @@ public class EntityStatic
     protected static List<IApplicationQuit> applicationList = new List<IApplicationQuit>();
 
     protected static void AddComp(Type type) {
-        Debug.Log(type);
         object t = Activator.CreateInstance(type);
         AddToComp(type, t);
     }
