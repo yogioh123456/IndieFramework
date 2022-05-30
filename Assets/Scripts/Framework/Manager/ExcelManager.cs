@@ -14,7 +14,6 @@ public class ExcelManager
 {
     //所有字典
     private static Dictionary<string, object> allExcelData = new Dictionary<string, object>();
-
     //excel开头非数据行数
     private static int notDataLines = 5;
 
@@ -28,7 +27,15 @@ public class ExcelManager
     private void LoadAllData()
     {
         allExcelData.Clear();
-        LoadExcelData(Path.Combine(Application.streamingAssetsPath, "Excel"));
+#if UNITY_EDITOR
+        //编辑器模式下读取.Excel的文件
+        LoadExcelData(Path.Combine(Application.dataPath, ".Excel"));
+#else
+        //发布模式
+        //1.生成csv文件
+        //2.将csv文件打ab包
+        
+#endif
         GC.Collect();
     }
 
