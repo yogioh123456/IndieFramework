@@ -9,9 +9,7 @@ public class ExcelToCSV {
     private static string excelPath = Path.Combine(Application.dataPath, ".Excel");
     //CSV文件路径
     private static string csvPath = Path.Combine(Application.dataPath, "Bundles/CSV/");
-    //排除的行数，从0开始
-    private static int[] exclusiveRows = {1, 2, 3, 4};
-    
+
     [MenuItem("Tools/ExcelToCSV")]
     public static void Convert() {
         //删除csv文件夹下面的所有文件
@@ -52,17 +50,6 @@ public class ExcelToCSV {
 
         //写入各行数据
         for (int i = 0; i < dataTable.Rows.Count; i++) {
-            bool isContinue = true;
-            foreach (var t in exclusiveRows) {
-                if (t == i) {
-                    isContinue = false;
-                    break;
-                }
-            }
-            if (!isContinue) {
-                continue;
-            }
-            
             string data = "";
             for (int j = 0; j < dataTable.Columns.Count; j++)
             {
