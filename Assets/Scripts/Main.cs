@@ -1,28 +1,35 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using ILRuntime.Runtime.Enviorment;
 
 public class Main : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Awake()
-    {
-        Game.Init(this);
-        Game.GetComp<MainLogic>().Init();
+    void Start() {
+        CodeLoader.Instance.Start();
     }
-    
+
     void Update()
     {
-        Game.Update();
+        if (Input.GetKeyDown(KeyCode.K)) {
+            CodeLoader.Instance.Run();
+        }
+        //CodeLoader.Instance.Update();
     }
 
     void FixedUpdate()
     {
-        Game.FixedUpdate();
+        //CodeLoader.Instance.FixedUpdate();
+    }
+    
+    void LateUpdate()
+    {
+        //CodeLoader.Instance.LateUpdate();
     }
 
     void OnApplicationQuit() {
-        Game.OnApplicationQuit();
+        CodeLoader.Instance.OnApplicationQuit();
+        CodeLoader.Instance.Dispose();
     }
 }

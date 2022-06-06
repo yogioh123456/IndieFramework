@@ -14,10 +14,12 @@ namespace HotFix_Project
 			try
 			{
 				Debug.Log("IDFramework");
-				CodeLoader.Instance.Update += Game.Update;
-				CodeLoader.Instance.FixedUpdate += Game.FixedUpdate;
-				CodeLoader.Instance.LateUpdate += Game.LateUpdate;
-				CodeLoader.Instance.OnApplicationQuit += Game.Close;
+				Game.hotFixTypes = CodeLoader.Instance.hotfixTypes;
+				CodeLoader.Instance.Update += Main.Update;
+				CodeLoader.Instance.FixedUpdate += Main.FixedUpdate;
+				CodeLoader.Instance.LateUpdate += Main.LateUpdate;
+				CodeLoader.Instance.OnApplicationQuit += Main.Close;
+				Main.Start();
 			}
 			catch (Exception e)
 			{

@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class CodeLoader : IDisposable
 {
+    public List<Type> hotfixTypes = new List<Type>();
     public static CodeLoader Instance = new CodeLoader();
     private ILRuntime.Runtime.Enviorment.AppDomain appDomain;
     private MemoryStream fs;
@@ -30,8 +32,19 @@ public class CodeLoader : IDisposable
         byte[] pdb = File.ReadAllBytes(Path.Combine(Application.streamingAssetsPath, "HotFix_Project.pdb"));
         p = new MemoryStream(pdb);
         appDomain.LoadAssembly(fs, p, new ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider());
+
+        Type[] types = appDomain.LoadedTypes.Values.Select(x => x.ReflectionType).ToArray();
+        hotfixTypes.Clear();
+        foreach (Type type in types)
+        {
+            hotfixTypes.Add(type);
+        }
         
         InitializeILRuntime();
+        //Run();
+    }
+
+    public void Run() {
         appDomain.Invoke("HotFix_Project.Entry", "Start", null);
     }
     
