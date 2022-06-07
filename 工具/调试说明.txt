@@ -1,0 +1,4 @@
+1、安装插件
+2、代码里面需要添加
+appdomain.DebugService.StartDebugService(56000);
+3、调试->attach to Ilruntime
