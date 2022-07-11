@@ -15,11 +15,11 @@ public class UI_DevTool : UGUICtrl
     public UI_DevTool()
     {
         OnCreate(ref selfView,"Prefabs/UI/ui_devTool","UI_DevTool");
-        Init();
+        SetData();
         selfView.updateEvent += Update;
     }
     
-    private void Init() {
+    private void SetData() {
         Assembly assembly = GetType().Assembly;
         List<Type> typeList = new List<Type>();
         Type[] types = assembly.GetTypes();

@@ -458,7 +458,7 @@ public static class Util {
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogError("创建失败");
+                    Debug.LogError("创建失败" + ex.Message);
                 }
             }
             

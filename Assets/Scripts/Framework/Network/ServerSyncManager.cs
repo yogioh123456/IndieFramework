@@ -105,8 +105,6 @@ public class ServerSyncManager : IFixedUpdate {
         //断线重连 采用 状态+追帧  的方式
         //状态数据首先克隆一份还原，然后走追帧逻辑
     }
-
-    private int lisInt = 0;
     
     public void FixedUpdate()
     {

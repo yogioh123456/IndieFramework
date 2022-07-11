@@ -1,35 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using UnityEngine;
-using ILRuntime.Runtime.Enviorment;
+﻿using UnityEngine;
 
 public class Main : MonoBehaviour
 {
     void Start() {
-        CodeLoader.Instance.Start();
+        Game.Init(this);
+        Game.GetComp<MainLogic>().Init();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K)) {
-            CodeLoader.Instance.Run();
-        }
-        //CodeLoader.Instance.Update();
+        Game.Update();
     }
 
     void FixedUpdate()
     {
-        //CodeLoader.Instance.FixedUpdate();
-    }
-    
-    void LateUpdate()
-    {
-        //CodeLoader.Instance.LateUpdate();
+        Game.FixedUpdate();
     }
 
-    void OnApplicationQuit() {
-        CodeLoader.Instance.OnApplicationQuit();
-        CodeLoader.Instance.Dispose();
+    void OnApplicationQuit()
+    {
+        Game.OnApplicationQuit();
     }
 }

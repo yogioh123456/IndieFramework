@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.ourpalm.ilruntime": "2.0.2",
     "com.unity.animation.rigging": "1.0.3",
     "com.unity.collab-proxy": "1.15.16",
     "com.unity.ide.rider": "2.0.7",
