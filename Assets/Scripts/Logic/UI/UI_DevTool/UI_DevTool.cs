@@ -1,18 +1,25 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DevToolWin {
-    public Transform point;
-    public PoolView contentPool;
+public class UI_DevTool : UGUICtrl
+{
+    public UI_DevTool_View selfView;
     private ButtonTreeData buttonTreeData = new ButtonTreeData();
     private List<TreeNode> curTreeList;
     private TreeNode curTreeNode;
 
-    private void Start() {
+    public UI_DevTool()
+    {
+        OnCreate(ref selfView,"Prefabs/UI/ui_devTool","UI_DevTool");
+        Init();
+        selfView.updateEvent += Update;
+    }
+    
+    private void Init() {
         Assembly assembly = GetType().Assembly;
         List<Type> typeList = new List<Type>();
         Type[] types = assembly.GetTypes();
@@ -37,7 +44,7 @@ public class DevToolWin {
         curTreeList = buttonTreeData.nodeList;
 
         //生成UI
-        PoolView content = CreateContent(point.position).GetComponent<PoolView>();
+        PoolView content = CreateContent(selfView.point.position).GetComponent<PoolView>();
         CreateUI(content, buttonTreeData.nodeList);
     }
 
@@ -61,7 +68,7 @@ public class DevToolWin {
                                 curTreeList = buttonTreeData.nodeList;
                             }
                         } else {
-                            //ControllerManager.Instance.Close<DevToolController>();
+                            ClosePanel();
                         }
 
                         return;
@@ -84,7 +91,7 @@ public class DevToolWin {
     }
 
     private PoolView CreateContent(Vector3 pos) {
-        GameObject go = contentPool.AddView();
+        GameObject go = selfView.contentPool.AddView();
         go.transform.position = pos;
         return go.GetComponent<PoolView>();
     }

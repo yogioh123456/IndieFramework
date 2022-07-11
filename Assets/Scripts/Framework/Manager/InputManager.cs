@@ -18,5 +18,18 @@ public class InputManager : IUpdate {
         {
             Game.Event.Dispatch("Jump");
         }
+
+        if (Input.GetKeyDown(KeyCode.Comma)) {
+            if (Game.UI.GetUI<UI_DevTool>() == null) {
+                Game.UI.OpenUI<UI_DevTool>();
+                return;
+            }
+            bool active = Game.UI.GetUI<UI_DevTool>().selfView.gameObject.activeSelf;
+            if (active) {
+                Game.UI.CloseUI<UI_DevTool>();
+            } else {
+                Game.UI.OpenUI<UI_DevTool>();
+            }
+        }
     }
 }
