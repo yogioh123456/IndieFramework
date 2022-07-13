@@ -31,12 +31,10 @@ MonoBehaviour:
     assemblyNames:
     - Assembly-CSharp
     - Assembly-CSharp-firstpass
-    - AFPSCounter.Runtime
-    - ILRuntime
+    - HotFix
     - RiptideNetworking
     - NetworkDemo
-    - AFPSCounter.Examples
-    - AFPSCounter.Editor
+    - Game
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

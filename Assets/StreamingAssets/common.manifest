@@ -1,0 +1,27 @@
+ManifestFileVersion: 0
+CRC: 1438715358
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f4080934a4763052f24225888e8c125f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: fb3ecd5c77b43be99d4437e0b5bb97e4
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 49
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: c537c4a01b9238a4c9987e7a5a9c3877, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Bundles/Excel/config.xlsx.bytes
+- Assets/Bundles/Dll/HotFix.dll.bytes
+- Assets/Bundles/Prefabs/Main.prefab
+Dependencies: []
