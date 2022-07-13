@@ -24,7 +24,7 @@ public class UGUIManager
     public Camera uiCamera;
 
     public UGUIManager() {
-        Object.Instantiate(Resources.Load<GameObject>("Prefabs/UI/UIRoot")).SetZero();
+        Object.Instantiate(AssetManager.LoadAsset("Prefabs/UI/UIRoot")).SetZero();
     }
     
     /// <summary>

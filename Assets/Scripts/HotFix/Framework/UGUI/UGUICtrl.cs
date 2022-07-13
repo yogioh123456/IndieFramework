@@ -7,9 +7,8 @@ public class UGUICtrl
     public string panelName;
     public UGUIView mainView;
 
-    protected Transform OnCreate<T>(ref T t,string path,string _panelName) where T: UGUIView, new()
-    {
-        GameObject go = Object.Instantiate(Resources.Load<GameObject>(path),Game.UI.UIRoot);
+    protected Transform OnCreate<T>(ref T t,string path,string _panelName) where T: UGUIView, new() {
+        GameObject go = Object.Instantiate(AssetManager.LoadAsset(path), Game.UI.UIRoot);
         T _ui = go.GetComponent<T>();
         mainView = _ui;
         t = _ui;
