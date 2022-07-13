@@ -88,7 +88,6 @@ public class CreateUGUICScriptEditor : MonoBehaviour {
     //-------------------生成Panel-View层脚本-----------------------
     static string AutoGetPanelComp(string className){
         string content = "";
-        string packName = "";
 
         string head = string.Format(
             @"using System.Collections;
