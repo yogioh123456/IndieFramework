@@ -19,8 +19,9 @@ public class Launch : MonoBehaviour {
 #if !UNITY_EDITOR
         gameMode = GameMode.Release
 #endif
-        
         GameMode = gameMode;
+        AssetManager.Init();
+        
         if (gameMode == GameMode.Develop) {
             Instantiate(AssetManager.LoadAsset("Prefabs/Main"));
         } else {
