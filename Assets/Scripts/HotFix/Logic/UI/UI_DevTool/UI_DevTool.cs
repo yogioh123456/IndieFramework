@@ -14,7 +14,7 @@ public class UI_DevTool : UGUICtrl
 
     public UI_DevTool()
     {
-        OnCreate(ref selfView,"Prefabs/UI/ui_devTool","UI_DevTool");
+        OnCreate(ref selfView,"UI/Prefabs/ui_devTool","UI_DevTool");
         SetData();
         selfView.updateEvent += Update;
     }

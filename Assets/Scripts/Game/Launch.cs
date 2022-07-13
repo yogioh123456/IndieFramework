@@ -23,7 +23,7 @@ public class Launch : MonoBehaviour {
         AssetManager.Init();
         
         if (gameMode == GameMode.Develop) {
-            Instantiate(AssetManager.LoadAsset("Prefabs/Main"));
+            Instantiate(AssetManager.LoadAsset("Base/Main"));
         } else {
             AssetBundle ab = assetBundle = AssetBundle.LoadFromFile(Application.streamingAssetsPath + "/common");
             TextAsset hotFixDll = ab.LoadAsset<TextAsset>("HotFix.dll.bytes");

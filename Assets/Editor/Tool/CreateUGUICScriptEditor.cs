@@ -131,7 +131,7 @@ public class {0} : UGUICtrl
 
     public {0}()
     {{
-        Transform uiTrans = OnCreate(ref selfView,""Prefabs/UI/{2}"",""{0}"");
+        Transform uiTrans = OnCreate(ref selfView,""UI/Prefabs/{2}"",""{0}"");
         selfView.Init(uiTrans);
     }}
 

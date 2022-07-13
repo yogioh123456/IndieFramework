@@ -13,7 +13,7 @@ public class UI_Menu : UGUICtrl
 
     public UI_Menu()
     {
-        OnCreate(ref selfView,"Prefabs/UI/ui_menu","UI_Menu");
+        OnCreate(ref selfView,"UI/Prefabs/ui_menu","UI_Menu");
     }
 
     /// <summary>

@@ -11,7 +11,7 @@ public class UI_Login : UGUICtrl
 
     public UI_Login()
     {
-        OnCreate(ref selfView,"Prefabs/UI/ui_login","UI_Login");
+        OnCreate(ref selfView,"UI/Prefabs/ui_login","UI_Login");
     }
 
     /// <summary>
