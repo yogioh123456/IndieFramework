@@ -29,12 +29,12 @@ MonoBehaviour:
     referenceMode: 2
     serializationDepthLimit: 64
     assemblyNames:
-    - Assembly-CSharp
     - Assembly-CSharp-firstpass
     - HotFix
     - RiptideNetworking
-    - Game
     - NetworkDemo
+    - Assembly-CSharp
+    - Game
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

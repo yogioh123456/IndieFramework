@@ -13,7 +13,7 @@ public class PlayerControl {
 
     public PlayerControl(PlayerNetData player) {
         this.player = player;
-        playerObj = AssetManager.LoadAsset("Prefabs/hero");
+        playerObj = Object.Instantiate(AssetManager.LoadAsset("Prefabs/hero"));
         playerMono = playerObj.GetComponent<PlayerMono>();
         animator = playerMono.animator;
         movement = new Movement(this);
