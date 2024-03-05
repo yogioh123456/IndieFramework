@@ -8,8 +8,8 @@ namespace IDServer
 {
     public class DBManager
     {
-        //private string connStr = "mongodb://127.0.0.1:27017";
-        private string connStr = "administrator:6716057SanYe@mongodb://39.99.131.198:27017";
+        private string connStr = "mongodb://127.0.0.1:27017";//本地
+        //private string connStr = "administrator:6716057SanYe@mongodb://39.99.131.198:27017";
         IMongoDatabase mongoDatabase;
         private int index = 0;
 

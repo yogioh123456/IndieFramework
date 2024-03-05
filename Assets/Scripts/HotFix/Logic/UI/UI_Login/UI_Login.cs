@@ -61,6 +61,8 @@ public class UI_Login : UGUICtrl
             Debug.Log("新账号，成功登录");
         } else {
             Debug.Log("账号存在，成功登录");
+            //跳转大厅
+            
         }
     }
 }

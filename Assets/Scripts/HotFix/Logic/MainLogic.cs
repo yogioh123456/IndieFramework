@@ -10,9 +10,9 @@ public class MainLogic {
     {
         //流星测试项目
         Object.Instantiate(AssetManager.LoadAsset("Prefabs/TestObj"));
-        Game.UI.OpenUIPanel<UI_Menu>();
+        //Game.UI.OpenUIPanel<UI_Menu>();
         
         //独立服务器测试项目
-        //Game.UI.OpenUIPanel<UI_Login>();
+        Game.UI.OpenUIPanel<UI_Login>();
     }
 }
