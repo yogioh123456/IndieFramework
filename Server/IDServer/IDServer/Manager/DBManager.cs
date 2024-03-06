@@ -15,6 +15,7 @@ namespace IDServer
 
         public DBManager()
         {
+            Debug.Log("链接数据库 xian");
             //链接数据库xian
             var client = new MongoClient(connStr);
             mongoDatabase = client.GetDatabase("xian");

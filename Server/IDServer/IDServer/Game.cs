@@ -10,6 +10,7 @@ namespace IDServer
         {
             AddComp<DBManager>();
             AddComp<UserManager>();
+            AddComp<RoomManager>();
         }
     }
 }
